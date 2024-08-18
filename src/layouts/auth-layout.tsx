@@ -9,6 +9,6 @@ type AuthLayoutProps = {
 
 export const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
-    <main className={`${inter.variable} font-sans min-h-screen flex flex-col justify-center items-center`}>{children}</main>
+    <div className={`${inter.variable} font-sans min-h-screen`}>{children}</div>
   );
 };
