@@ -9,7 +9,7 @@ import React from 'react'
 function DashboardNavbar() {
   return (
     <Navbar>
-        <h1 className="font-semibold text-lg">Fleet Manager</h1>
+        <h1 className="invisible md:visible font-semibold text-lg">Fleet Manager</h1>
         <div className="flex gap-8 justify-center items-center">
           <div className="flex gap-4 justify-center items-center">
             <p>John Doe</p>
