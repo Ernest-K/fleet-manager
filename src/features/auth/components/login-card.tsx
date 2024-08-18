@@ -8,7 +8,7 @@ function LoginCard() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sign In</CardTitle>
+        <CardTitle>Log in</CardTitle>
         <CardDescription>Enter email and password to access your account</CardDescription>
       </CardHeader>
       <CardContent>

@@ -8,8 +8,8 @@ function RegisterCard() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sign Up</CardTitle>
-        <CardDescription>Enter email and password to create your account</CardDescription>
+        <CardTitle>Register</CardTitle>
+        <CardDescription>Enter name, email and password to create your account</CardDescription>
       </CardHeader>
       <CardContent>
         <RegisterForm/>

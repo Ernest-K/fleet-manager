@@ -9,8 +9,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="dark"
+      defaultTheme="light"
       enableSystem
+      disableTransitionOnChange
     >
       {children}
     </ThemeProvider>

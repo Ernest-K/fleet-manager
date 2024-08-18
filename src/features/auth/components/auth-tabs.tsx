@@ -6,15 +6,15 @@ import RegisterCard from "@/features/auth/components/register-card";
 
 function AuthTabs() {
   return (
-    <Tabs defaultValue="signIn" className="basis-[400px]">
+    <Tabs defaultValue="login" className="basis-[400px]">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="signIn">Sign In</TabsTrigger>
-        <TabsTrigger value="signUp">Sign Up</TabsTrigger>
+        <TabsTrigger value="login">Log In</TabsTrigger>
+        <TabsTrigger value="register">Register</TabsTrigger>
       </TabsList>
-      <TabsContent value="signIn">
+      <TabsContent value="login">
         <LoginCard />
       </TabsContent>
-      <TabsContent value="signUp">
+      <TabsContent value="register">
         <RegisterCard />
       </TabsContent>
     </Tabs>
