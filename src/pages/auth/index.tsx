@@ -6,16 +6,9 @@ import { Navbar } from "@/components/navbar";
 
 const AuthPage = () => {
   return (
-    <>
-      <Navbar>
-        <div className="ml-auto">
-          <ThemeToggle />
-        </div>
-      </Navbar>
-      <main className="container h-[calc(100vh-6rem)] flex justify-center items-center">
-        <AuthTabs />
-      </main>
-    </>
+    <main className="container h-[calc(100vh-6rem)] flex justify-center items-center">
+      <AuthTabs />
+    </main>
   );
 };
 

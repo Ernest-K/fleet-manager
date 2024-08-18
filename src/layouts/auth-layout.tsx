@@ -1,7 +1,7 @@
+import { Navbar } from "@/components/navbar";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
-
-const inter = Inter({ subsets: ["latin"], variable: '--font-sans' });
 
 type AuthLayoutProps = {
   children: ReactNode;
@@ -9,6 +9,12 @@ type AuthLayoutProps = {
 
 export const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
-    <div className={`${inter.variable} font-sans min-h-screen`}>{children}</div>
+    <div className="min-h-screen">
+      <Navbar>
+        <h1 className="font-semibold text-lg">Fleet Manager</h1>
+        <ThemeToggle />
+      </Navbar>
+      {children}
+    </div>
   );
 };

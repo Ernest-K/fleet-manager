@@ -6,10 +6,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut } from 'lucide-react';
 import React from 'react'
 
-function navbar() {
+function DashboardNavbar() {
   return (
     <Navbar>
-        <h1 className="font-semibold text-lg">Logo</h1>
+        <h1 className="font-semibold text-lg">Fleet Manager</h1>
         <div className="flex gap-8 justify-center items-center">
           <div className="flex gap-4 justify-center items-center">
             <p>John Doe</p>
@@ -46,4 +46,4 @@ function navbar() {
   )
 }
 
-export default navbar
+export default DashboardNavbar
