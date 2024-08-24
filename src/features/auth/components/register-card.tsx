@@ -1,8 +1,8 @@
-import React from 'react'
-import RegisterForm from '@/features/auth/components/register-form'
+import React from "react";
+import RegisterForm from "@/features/auth/components/register-form";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from '@/components/ui/button';
-
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/ui/icons";
 
 function RegisterCard() {
   return (
@@ -12,7 +12,7 @@ function RegisterCard() {
         <CardDescription>Enter name, email and password to create your account</CardDescription>
       </CardHeader>
       <CardContent>
-        <RegisterForm/>
+        <RegisterForm />
         <div className="relative mt-6">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
@@ -25,12 +25,12 @@ function RegisterCard() {
 
       <CardFooter>
         <Button variant="outline" className="w-full">
-          {/* <Icons.google className="mr-2 h-4 w-4" /> */}
+          <Icons.google className="mr-2 h-4 w-4" />
           Google
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
-export default RegisterCard
+export default RegisterCard;
