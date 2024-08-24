@@ -2,7 +2,13 @@ import { DashboardLayout } from "@/layouts/dashboard-layout";
 import { ReactElement } from "react";
 
 const VehiclesPage = () => {
-  return <h1>Vehicles</h1>;
+  return (
+    <>
+      <header className="w-full">
+        <h2 className="text-2xl font-medium">Vehicles</h2>
+      </header>
+    </>
+  );
 };
 
 VehiclesPage.getLayout = function getLayout(page: ReactElement) {

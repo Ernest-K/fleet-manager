@@ -4,8 +4,9 @@ import { ReactElement } from "react";
 const DashboardPage = () => {
   return (
     <>
-      <h1>Dashboard</h1>
-      <div className="h-[200rem]"></div>
+      <header className="w-full">
+        <h2 className="text-2xl font-medium">Dashboard</h2>
+      </header>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import DashboardNavbar from "@/features/dashboard/components/dashboard-navbar";
-import Menu from "@/features/dashboard/components/menu";
+import Menu from "@/components/menu";
 import { LayoutDashboard, Car, UsersRound, UserRoundPen, TextSearch, Wrench, BadgeAlert, Settings } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -57,7 +57,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           ]}
         />
       
-      <main className="pt-3">{children}</main>
+      <main className="pt-3 w-full">{children}</main>
       </div>
     </div>
   );

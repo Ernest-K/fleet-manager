@@ -1,9 +1,9 @@
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { LucideIcon, X, Menu as MenuIcon } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { LucideIcon, X, Menu as MenuIcon } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
 
 interface MenuProps {
   links: {
@@ -27,7 +27,6 @@ function Menu({ links }: MenuProps) {
   };
 
   useEffect(() => {
-    // Close the menu if user clicks outside of it
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         handleCloseMenu();
@@ -61,50 +60,49 @@ function Menu({ links }: MenuProps) {
       <nav
         ref={menuRef}
         className={cn(
-          "fixed flex flex-col gap-4 p-10 pt-20 w-3/4 inset-0 z-40 bg-background border-r border-border transition-transform transform",
-          isOpen ? "translate-x-0" : "-translate-x-full", // Slide in/out effect
-          "md:hidden" // Hide on medium and larger screens
+          "fixed flex flex-col gap-4 p-10 pt-20 w-2/3 inset-0 z-40 bg-background border-r border-border transition-transform transform",
+          isOpen ? "translate-x-0" : "-translate-x-full",
+          "md:hidden"
         )}
       >
         {links.map((link, index) => {
-          const variant = router.pathname == link.url ? "default" : "ghost";
+          const variant = router.pathname == link.url ? "secondary" : "ghost";
           return (
             <Link
               key={index}
               href={link.url}
               className={cn(
                 buttonVariants({ variant: variant, size: "sm" }),
-                variant === "default" &&
+                variant === "secondary" &&
                   "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                "justify-start"
+                "justify-start py-5"
               )}
               onClick={handleCloseMenu}
             >
               <link.icon className="mr-4 h-6 w-6" />
-              <span className="text-lg">{link.title}</span>
+              <span className="text-lg font-normal">{link.title}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* Sidebar menu for larger screens */}
       <aside className="hidden md:block sticky top-0 h-full pt-3">
-        <nav className="flex flex-col gap-3">
+        <nav className="flex flex-col gap-2">
           {links.map((link, index) => {
-            const variant = router.pathname == link.url ? "default" : "ghost";
+            const variant = router.pathname == link.url ? "secondary" : "ghost";
             return (
               <Link
                 key={index}
                 href={link.url}
                 className={cn(
-                  buttonVariants({ variant: variant, size: "sm" }),
-                  variant === "default" &&
+                  buttonVariants({ variant: variant, size: "default" }),
+                  variant === "secondary" &&
                     "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                   "justify-start"
                 )}
               >
-                <link.icon className="mr-2 h-6 w-6" />
-                <span>{link.title}</span>
+                <link.icon className="mr-4 h-6 w-6" />
+                <span className="text-base font-normal">{link.title}</span>
               </Link>
             );
           })}
