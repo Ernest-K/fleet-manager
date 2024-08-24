@@ -13,19 +13,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { registerFormSchema } from "@/features/auth/types";
+import useRegister from "@/features/auth/hooks/useRegister";
+import { useToast } from "@/components/ui/use-toast"
+import { useRouter } from "next/router";
+import { Icons } from "@/components/ui/icons";
 
-const formSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(4, { message: "Password must contain at least 4 characters" }),
-});
 
 function RegisterForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const {mutate: register, isPending} = useRegister();
+  const { toast } = useToast()
+
+  const form = useForm<z.infer<typeof registerFormSchema>>({
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -34,11 +34,17 @@ function RegisterForm() {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  function onSubmit(values: z.infer<typeof registerFormSchema>) {
+    register(values, {
+      onSuccess: (user) => {
+        console.log(user);
+        toast({
+          title: "Your registration has been successful.",
+          description: "You can log in",
+        })
+      }
+    });
+    form.reset();
   }
 
   return (
@@ -98,7 +104,8 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="!mt-6 w-full">
+        <Button type="submit" className="!mt-6 w-full" disabled={isPending}>
+        {isPending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
           Sign Up
         </Button>
       </form>

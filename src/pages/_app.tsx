@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { AppProvider } from "@/providers/app-provider";
 import "@/styles/globals.css";
 import { NextPage } from "next";
@@ -17,6 +18,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   const pageContent = getLayout(<Component {...pageProps} />);
 
-  return <AppProvider>{pageContent}</AppProvider>;
+  return (
+    <AppProvider>
+      {pageContent} 
+      <Toaster />
+    </AppProvider>
+  );
   // return getLayout(<Component {...pageProps} />);
 }

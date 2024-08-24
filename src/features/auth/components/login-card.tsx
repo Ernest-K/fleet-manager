@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import LoginForm from '@/features/auth/components/login-form'
 import { UserRound } from 'lucide-react';
+import { Icons } from '@/components/ui/icons';
 
 function LoginCard() {
   return (
@@ -30,7 +31,7 @@ function LoginCard() {
             Guest Login
           </Button>
           <Button variant="outline" className="flex-1">
-            {/* <Icons.google className="mr-2 h-4 w-4" /> */}
+            <Icons.google className="mr-2 h-4 w-4" />
             Google
           </Button>
         </div>
