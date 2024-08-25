@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
@@ -18,6 +10,7 @@ import { loginFormSchema } from "@/features/auth/types";
 import useLogin from "@/features/auth/hooks/useLogin";
 import { useRouter } from "next/router";
 import { toast } from "@/components/ui/use-toast";
+import LoadingButton from "@/components/loading-button";
 
 function LoginForm() {
   const router = useRouter();
@@ -35,9 +28,9 @@ function LoginForm() {
       onSuccess: (data) => {
         toast({
           description: "You are successfully logged in",
-        })
+        });
         router.push("/dashboard");
-      }
+      },
     });
   }
 
@@ -53,9 +46,7 @@ function LoginForm() {
               <FormControl>
                 <Input placeholder="example@example.com" {...field} />
               </FormControl>
-              <FormDescription>
-                Please enter your email address.
-              </FormDescription>
+              <FormDescription>Please enter your email address.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -74,11 +65,7 @@ function LoginForm() {
             </FormItem>
           )}
         />
-
-        <Button type="submit" className="!mt-6 w-full" disabled={isPending}>
-          {isPending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-          Sign In
-        </Button>
+        <LoadingButton type="submit" isLoading={isPending} label="Sign in" className="w-full" />
       </form>
     </Form>
   );

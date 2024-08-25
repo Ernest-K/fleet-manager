@@ -1,11 +1,28 @@
-import React from 'react'
+import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from '@/components/ui/button';
-import LoginForm from '@/features/auth/components/login-form'
-import { UserRound } from 'lucide-react';
-import { Icons } from '@/components/ui/icons';
+import { Button } from "@/components/ui/button";
+import LoginForm from "@/features/auth/components/login-form";
+import { UserRound } from "lucide-react";
+import { Icons } from "@/components/ui/icons";
+import useLogin from "../hooks/useLogin";
+import { useRouter } from "next/router";
 
 function LoginCard() {
+  // REFACTOR THIS
+  const { mutate: login } = useLogin();
+  const router = useRouter();
+
+  const handleGuestLogin = () => {
+    login(
+      { email: "m@m.com", password: "123456" },
+      {
+        onSuccess: (data) => {
+          router.push("/dashboard");
+        },
+      }
+    );
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -26,7 +43,7 @@ function LoginCard() {
 
       <CardFooter>
         <div className="flex gap-6 w-full justify-between">
-          <Button type="submit" variant="outline" className="flex-1">
+          <Button type="submit" variant="outline" className="flex-1" onClick={handleGuestLogin}>
             <UserRound size={16} className="mr-2" />
             Guest Login
           </Button>
@@ -37,7 +54,7 @@ function LoginCard() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
 
-export default LoginCard
+export default LoginCard;

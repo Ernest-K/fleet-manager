@@ -7,28 +7,29 @@ import { User } from "@/features/auth/types";
 
 interface UserContextProps {
   user: User | null;
+  refreshUser: () => Promise<void>;
 }
 
-const UserContext = createContext<UserContextProps>({ user: null });
+const UserContext = createContext<UserContextProps>({ user: null, refreshUser: async () => {} });
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const { authUser } = useAuth();
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
+  const fetchUser = async () => {
     if (authUser) {
-      const fetchUser = async () => {
-        const userDoc = await getDoc(doc(db, "users", authUser.uid));
-        setUser(userDoc.exists() ? (userDoc.data() as User) : null);
-      };
-
-      fetchUser();
+      const userDoc = await getDoc(doc(db, "users", authUser.uid));
+      setUser(userDoc.exists() ? (userDoc.data() as User) : null);
     } else {
       setUser(null);
     }
+  };
+
+  useEffect(() => {
+    fetchUser();
   }, [authUser]);
 
-  return <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, refreshUser: fetchUser }}>{children}</UserContext.Provider>;
 }
 
 export const useUser = () => useContext(UserContext);

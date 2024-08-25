@@ -1,4 +1,5 @@
 import ProfileForm from "@/components/profile-form";
+import ProfilePhotoUploader from "@/components/profile-photo-uploader";
 import { Separator } from "@/components/ui/separator";
 import { DashboardLayout } from "@/layouts/dashboard-layout";
 import { ReactElement } from "react";
@@ -11,7 +12,8 @@ const SettingsPage = () => {
         <p className="text-muted-foreground">Manage your account settings</p>
       </header>
       <Separator />
-      <section className="py-3 max-w-2xl">
+      <section className="py-5 max-w-2xl flex flex-col gap-5">
+        <ProfilePhotoUploader />
         <ProfileForm />
       </section>
     </>

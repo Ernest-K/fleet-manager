@@ -1,28 +1,17 @@
 import React from "react";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import { registerFormSchema } from "@/features/auth/types";
 import useRegister from "@/features/auth/hooks/useRegister";
-import { useToast } from "@/components/ui/use-toast"
-import { useRouter } from "next/router";
-import { Icons } from "@/components/ui/icons";
-
+import { useToast } from "@/components/ui/use-toast";
+import LoadingButton from "@/components/loading-button";
 
 function RegisterForm() {
-  const {mutate: register, isPending} = useRegister();
-  const { toast } = useToast()
+  const { mutate: register, isPending } = useRegister();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
@@ -41,8 +30,8 @@ function RegisterForm() {
         toast({
           title: "Your registration has been successful.",
           description: "You can log in",
-        })
-      }
+        });
+      },
     });
     form.reset();
   }
@@ -104,10 +93,7 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="!mt-6 w-full" disabled={isPending}>
-        {isPending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-          Sign Up
-        </Button>
+        <LoadingButton type="submit" isLoading={isPending} label="Sign up" className="w-full" />
       </form>
     </Form>
   );

@@ -27,8 +27,8 @@ function DashboardNavbar() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src={user?.photoURL} alt="Profile photo" />
+                  <AvatarFallback>FM</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
