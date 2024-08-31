@@ -1,6 +1,6 @@
 import DashboardNavbar from "@/features/dashboard/components/dashboard-navbar";
 import Menu from "@/components/menu";
-import Protected from "@/components/protected";
+import ProtectedRoute from "@/components/protected-route";
 import { LayoutDashboard, Car, UsersRound, UserRoundPen, TextSearch, Wrench, BadgeAlert, Settings } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -10,7 +10,7 @@ type DashboardLayoutProps = {
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    <Protected allowedRoles={["manager"]}>
+    <ProtectedRoute allowedRoles={["manager"]}>
       <div className="min-h-screen">
         <DashboardNavbar />
         <div className="container flex gap-6">
@@ -62,6 +62,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <main className="pt-3 w-full">{children}</main>
         </div>
       </div>
-    </Protected>
+    </ProtectedRoute>
   );
 };

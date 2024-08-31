@@ -4,12 +4,12 @@ import { useAuth } from "@/providers/auth-provider";
 import { useUser } from "@/providers/user-provider";
 import { Icons } from "@/components/ui/icons";
 
-interface ProtectedProps {
+interface ProtectedRouteProps {
   children: ReactNode;
   allowedRoles: string[];
 }
 
-export default function Protected({ children, allowedRoles }: ProtectedProps) {
+export default function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
   const { authUser, loading } = useAuth();
   const { user } = useUser();
   const router = useRouter();
