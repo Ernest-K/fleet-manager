@@ -1,8 +1,10 @@
-import DashboardNavbar from "@/features/dashboard/components/dashboard-navbar";
 import Menu from "@/components/menu";
 import ProtectedRoute from "@/components/protected-route";
 import { LayoutDashboard, Car, UsersRound, UserRoundPen, TextSearch, Wrench, BadgeAlert, Settings } from "lucide-react";
 import { ReactNode } from "react";
+import { Navbar } from "@/components/navbar";
+import { ThemeToggle } from "@/components/theme-toggle";
+import UserInfo from "@/components/user-info";
 
 type DashboardLayoutProps = {
   children: ReactNode;
@@ -12,7 +14,13 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <ProtectedRoute allowedRoles={["manager"]}>
       <div className="min-h-screen">
-        <DashboardNavbar />
+        <Navbar>
+          <h1 className="invisible md:visible basis-0 md:basis-auto font-semibold text-lg">Fleet Manager</h1>
+          <div className="flex gap-8 justify-center items-center">
+            <UserInfo />
+            <ThemeToggle />
+          </div>
+        </Navbar>
         <div className="container flex gap-6">
           <Menu
             links={[
