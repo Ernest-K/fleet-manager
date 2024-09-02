@@ -4,7 +4,7 @@ import { ReactElement } from "react";
 const DashboardPage = () => {
   return (
     <>
-      <header className="w-full">
+      <header className="w-full flex justify-start">
         <h2 className="text-2xl font-medium">Dashboard</h2>
       </header>
     </>

@@ -14,20 +14,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       password,
     });
 
-    await admin.firestore().collection("users").doc(userRecord.uid).set({
-      uid: userRecord.uid,
-      firstName,
-      lastName,
-      phone,
-      licenseNumber,
-      email,
-      role: "driver",
-      createdBy,
-    });
+    await admin
+      .firestore()
+      .collection("users")
+      .doc(userRecord.uid)
+      .set({
+        uid: userRecord.uid,
+        firstName,
+        lastName,
+        phone: phone ?? "",
+        licenseNumber: licenseNumber ?? "",
+        email,
+        role: "driver",
+        createdBy,
+      });
 
     res.status(200).json({ success: true });
   } catch (error) {
-    console.error("Error creating driver:", error);
+    console.error("Error creating driver");
     res.status(500).json({ error: "Error creating driver" });
   }
 }

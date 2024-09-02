@@ -67,7 +67,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             ]}
           />
 
-          <main className="pt-3 w-full">{children}</main>
+          <main className="pt-6 w-full">{children}</main>
         </div>
       </div>
     </ProtectedRoute>

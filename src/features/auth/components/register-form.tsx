@@ -26,7 +26,6 @@ function RegisterForm() {
   function onSubmit(values: z.infer<typeof registerFormSchema>) {
     register(values, {
       onSuccess: (user) => {
-        console.log(user);
         toast({
           title: "Your registration has been successful.",
           description: "You can log in",

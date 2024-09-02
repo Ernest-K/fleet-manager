@@ -18,7 +18,7 @@ async function createDriver({ driverData, managerUid }: createDriverOptions) {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to register driver");
+    throw new Error(response.statusText);
   }
 
   return response.json();

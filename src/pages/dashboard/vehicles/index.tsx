@@ -4,7 +4,7 @@ import { ReactElement } from "react";
 const VehiclesPage = () => {
   return (
     <>
-      <header className="w-full">
+      <header className="w-full flex justify-start">
         <h2 className="text-2xl font-medium">Vehicles</h2>
       </header>
     </>

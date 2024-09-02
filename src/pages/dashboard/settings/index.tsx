@@ -7,12 +7,12 @@ import { ReactElement } from "react";
 const SettingsPage = () => {
   return (
     <>
-      <header className="py-3">
+      <header className="pb-3">
         <h2 className="text-2xl font-medium">Settings</h2>
         <p className="text-muted-foreground">Manage your account settings</p>
       </header>
       <Separator />
-      <section className="py-5 max-w-2xl flex flex-col gap-5">
+      <section className="py-6 max-w-2xl flex flex-col gap-6">
         <ProfilePhotoUploader />
         <ProfileForm />
       </section>
