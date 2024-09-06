@@ -48,38 +48,17 @@ function Menu({ links }: MenuProps) {
     <>
       <div className="md:hidden fixed top-3 left-4 z-50">
         <Button variant="outline" size="icon" onClick={toggleMenu}>
-          {isOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <MenuIcon className="h-6 w-6" />
-          )}
+          {isOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           <span className="sr-only">Toggle menu</span>
         </Button>
       </div>
 
-      <nav
-        ref={menuRef}
-        className={cn(
-          "fixed flex flex-col gap-4 p-10 pt-20 w-2/3 inset-0 z-40 bg-background border-r border-border transition-transform transform",
-          isOpen ? "translate-x-0" : "-translate-x-full",
-          "md:hidden"
-        )}
-      >
+      <nav ref={menuRef} className={cn("fixed flex flex-col gap-4 p-8 pt-20 w-2/3 inset-0 z-40 bg-background border-r border-border transition-transform transform", isOpen ? "translate-x-0" : "-translate-x-full", "md:hidden")}>
         {links.map((link, index) => {
           const variant = router.pathname == link.url ? "secondary" : "ghost";
           return (
-            <Link
-              key={index}
-              href={link.url}
-              className={cn(
-                buttonVariants({ variant: variant, size: "sm" }),
-                variant === "secondary" &&
-                  "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                "justify-start py-5"
-              )}
-              onClick={handleCloseMenu}
-            >
-              <link.icon className="mr-4 h-6 w-6" />
+            <Link key={index} href={link.url} className={cn(buttonVariants({ variant: variant, size: "sm" }), variant === "secondary" && "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white", "justify-start py-5")} onClick={handleCloseMenu}>
+              <link.icon className="mr-4 h-6 w-6 flex-shrink-0" />
               <span className="text-lg font-normal">{link.title}</span>
             </Link>
           );
@@ -91,16 +70,7 @@ function Menu({ links }: MenuProps) {
           {links.map((link, index) => {
             const variant = router.pathname == link.url ? "secondary" : "ghost";
             return (
-              <Link
-                key={index}
-                href={link.url}
-                className={cn(
-                  buttonVariants({ variant: variant, size: "default" }),
-                  variant === "secondary" &&
-                    "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                  "justify-start"
-                )}
-              >
+              <Link key={index} href={link.url} className={cn(buttonVariants({ variant: variant, size: "default" }), variant === "secondary" && "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white", "justify-start")}>
                 <link.icon className="mr-4 h-6 w-6" />
                 <span className="text-base font-normal">{link.title}</span>
               </Link>

@@ -8,7 +8,7 @@ function BackButton() {
 
   return (
     <Button variant="outline" size="icon" onClick={() => router.back()}>
-      <ArrowLeft />
+      <ArrowLeft className="w-5 h-5" />
     </Button>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useAuth } from "@/providers/auth-provider";
 import { useGetDrivers } from "@/features/drivers/hooks/useGetDrivers";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -27,6 +27,7 @@ function DriverTable() {
 
   return (
     <Table>
+      <TableCaption>List of drivers</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>First name</TableHead>
