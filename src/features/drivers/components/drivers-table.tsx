@@ -9,6 +9,7 @@ import { Trash2 } from "lucide-react";
 import { useDeleteDriver } from "@/features/drivers/hooks/useDeleteDriver";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function DriverTable() {
   const { authUser } = useAuth();
@@ -17,7 +18,7 @@ function DriverTable() {
 
   const handleDeleteDriver = (driverUid: string) => {
     deleteDriver(driverUid, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         toast({
           description: "Driver deleted successfully",
         });
@@ -30,6 +31,7 @@ function DriverTable() {
       <TableCaption>List of drivers</TableCaption>
       <TableHeader>
         <TableRow>
+          <TableHead>Photo</TableHead>
           <TableHead>First name</TableHead>
           <TableHead>Last name</TableHead>
           <TableHead>Email</TableHead>
@@ -42,6 +44,12 @@ function DriverTable() {
         {data &&
           data.map((driver) => (
             <TableRow key={driver.uid}>
+              <TableCell>
+                <Avatar>
+                  <AvatarImage src={driver.photoURL ? driver.photoURL : "/default-profile-photo.jpg"} />
+                  <AvatarFallback>FM</AvatarFallback>
+                </Avatar>
+              </TableCell>
               <TableCell>{driver.firstName}</TableCell>
               <TableCell>{driver.lastName}</TableCell>
               <TableCell>{driver.email}</TableCell>
@@ -59,7 +67,9 @@ function DriverTable() {
                     <DropdownMenuItem>
                       <Link href={`drivers/${driver.uid}`}>View</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href={`drivers/${driver.uid}/edit`}>Edit</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="text-red-600" onClick={() => handleDeleteDriver(driver.uid)}>
                       Delete <Trash2 size={16} className="ml-auto" />

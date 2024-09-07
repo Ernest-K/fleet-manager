@@ -1,19 +1,24 @@
+import DashboardContentHeader from "@/components/dashboard-content-header";
 import ProfileForm from "@/components/profile-form";
 import ProfilePhotoUploader from "@/components/profile-photo-uploader";
 import { Separator } from "@/components/ui/separator";
 import { DashboardLayout } from "@/layouts/dashboard-layout";
+import { useUser } from "@/providers/user-provider";
 import { ReactElement } from "react";
 
 const SettingsPage = () => {
+  const { user, refreshUser } = useUser();
+
+  if (!user) {
+    return <p>User not found</p>;
+  }
+
   return (
     <>
-      <header className="pb-3">
-        <h2 className="text-2xl font-medium">Settings</h2>
-        <p className="text-muted-foreground">Manage your account settings</p>
-      </header>
+      <DashboardContentHeader title="Settings" description="Manage your account settings" />
       <Separator />
       <section className="py-6 max-w-2xl flex flex-col gap-6">
-        <ProfilePhotoUploader />
+        <ProfilePhotoUploader uid={user.uid} currentPhotoURL={user.photoURL} onUploadSuccess={() => refreshUser()} />
         <ProfileForm />
       </section>
     </>
