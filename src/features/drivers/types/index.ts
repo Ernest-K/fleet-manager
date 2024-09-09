@@ -19,7 +19,14 @@ export const editDriverFormSchema = z.object({
 });
 
 export type Driver = User & {
+  documents: Document[];
   phone: string;
   licenseNumber?: string;
   createdBy: string;
+};
+
+// TODO - CHANGE NAME OF THIS TYPE
+export type Document = {
+  label: string;
+  url: string;
 };

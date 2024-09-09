@@ -10,13 +10,13 @@ import { useDeleteDriver } from "@/features/drivers/hooks/useDeleteDriver";
 import { useAuth } from "@/providers/auth-provider";
 import { toast } from "@/components/ui/use-toast";
 import DashboardContentHeader from "@/components/dashboard-content-header";
+import DriverDocumentsCard from "@/features/drivers/components/driver-documents-card";
 
 const DriverDetailPage = () => {
   const router = useRouter();
   const { uid: driverUid } = router.query;
   const { authUser } = useAuth();
   const { mutate: deleteDriver, isPending } = useDeleteDriver({ managerUid: authUser!.uid });
-
   const validDriverUid = !driverUid || Array.isArray(driverUid) ? "" : driverUid;
 
   const handleDeleteDriver = () => {
@@ -37,11 +37,11 @@ const DriverDetailPage = () => {
   return (
     <>
       <DashboardContentHeader title="Driver details" includeBackButton={true}>
-        <div className="ml-auto space-x-6">
-          <Button asChild variant={"outline"}>
+        <div className="ml-auto flex gap-6">
+          <Button asChild variant="outline">
             <Link href={`/dashboard/drivers/${driverUid}/edit`}>
-              <UserRoundPen className="mr-2 h-5 w-5" />
-              Edit driver
+              <UserRoundPen className="sm:mr-2 h-5 w-5" />
+              <span className="hidden sm:inline">Edit driver</span>
             </Link>
           </Button>
           <AlertDialog>
@@ -65,8 +65,9 @@ const DriverDetailPage = () => {
           </AlertDialog>
         </div>
       </DashboardContentHeader>
-      <section className="py-5 flex flex-col">
+      <section className="py-5 flex flex-col gap-6">
         <DriverDetail driverUid={validDriverUid} />
+        <DriverDocumentsCard driverUid={validDriverUid} />
       </section>
     </>
   );

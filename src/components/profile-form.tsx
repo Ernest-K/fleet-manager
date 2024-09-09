@@ -147,7 +147,7 @@ function ProfileForm() {
 
       <Form {...emailForm}>
         <form onSubmit={emailForm.handleSubmit(updateEmailHandler)} className="space-y-4">
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
             <FormField
               control={emailForm.control}
               name="email"
@@ -163,14 +163,14 @@ function ProfileForm() {
               )}
             />
 
-            <LoadingButton className="mt-8" type="submit" isLoading={emailForm.formState.isSubmitting} label="Update Email" loadingLabel="Updating" />
+            <LoadingButton className="sm:mt-8" type="submit" isLoading={emailForm.formState.isSubmitting} label="Update Email" loadingLabel="Updating" />
           </div>
         </form>
       </Form>
 
       <Form {...passwordForm}>
         <form onSubmit={passwordForm.handleSubmit(updatePasswordHandler)} className="space-y-4">
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
             <FormField
               control={passwordForm.control}
               name="password"
@@ -185,7 +185,7 @@ function ProfileForm() {
               )}
             />
 
-            <LoadingButton className="mt-8" type="submit" isLoading={passwordForm.formState.isSubmitting} label="Update Password" loadingLabel="Updating" />
+            <LoadingButton className="sm:mt-8" type="submit" isLoading={passwordForm.formState.isSubmitting} label="Update Password" loadingLabel="Updating" />
           </div>
         </form>
       </Form>

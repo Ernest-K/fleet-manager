@@ -14,7 +14,7 @@ function DashboardContentHeader({ title, description, includeBackButton = false,
       <div className="flex items-center gap-6">
         {includeBackButton && <BackButton />}
         <div>
-          <h2 className="text-2xl font-medium">{title}</h2>
+          <h2 className="text-2xl font-semibold leading-none">{title}</h2>
           {description && <p className="text-muted-foreground">{description}</p>}
         </div>
       </div>
