@@ -53,7 +53,7 @@ function Menu({ links }: MenuProps) {
         </Button>
       </div>
 
-      <nav ref={menuRef} className={cn("fixed flex flex-col gap-4 p-8 pt-20 w-2/3 inset-0 z-40 bg-background border-r border-border transition-transform transform", isOpen ? "translate-x-0" : "-translate-x-full", "md:hidden")}>
+      <nav ref={menuRef} className={cn("fixed flex flex-col gap-3 p-8 pt-20 w-2/3 inset-0 z-40 bg-background border-r border-border transition-transform transform", isOpen ? "translate-x-0" : "-translate-x-full", "md:hidden")}>
         {links.map((link, index) => {
           const variant = router.pathname == link.url ? "secondary" : "ghost";
           return (
@@ -66,7 +66,7 @@ function Menu({ links }: MenuProps) {
       </nav>
 
       <aside className="hidden md:block sticky top-0 h-full pt-3">
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-3">
           {links.map((link, index) => {
             const variant = router.pathname == link.url ? "secondary" : "ghost";
             return (

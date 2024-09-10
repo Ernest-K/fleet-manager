@@ -33,7 +33,7 @@ function CreateDriverForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <div className="flex flex-col md:flex-row justify-between gap-3 md:gap-6">
           <FormField
             control={form.control}

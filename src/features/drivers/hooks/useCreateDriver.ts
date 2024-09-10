@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { createDriverFormSchema } from "@/features/drivers/types";
-import { toast } from "@/components/ui/use-toast";
+import queryClient from "@/lib/queryClient";
 
 type createDriverOptions = {
   driverData: z.infer<typeof createDriverFormSchema>;
@@ -9,7 +9,7 @@ type createDriverOptions = {
 };
 
 async function createDriver({ driverData, managerUid }: createDriverOptions) {
-  const response = await fetch("/api/createDriver", {
+  const response = await fetch("/api/creuseQueryClientateDriver", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,19 +29,10 @@ type useCreateDriverOptions = {
 };
 
 export function useCreateDriver({ managerUid }: useCreateDriverOptions) {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (driverData: createDriverOptions["driverData"]) => createDriver({ driverData, managerUid }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["drivers", managerUid] });
-    },
-    onError: (error: Error) => {
-      toast({
-        variant: "destructive",
-        title: "Something went wrong!",
-        description: error.message,
-      });
     },
   });
 }

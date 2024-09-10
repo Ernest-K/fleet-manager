@@ -65,7 +65,7 @@ const DriverDetailPage = () => {
           </AlertDialog>
         </div>
       </DashboardContentHeader>
-      <section className="py-5 flex flex-col gap-6">
+      <section className="flex flex-col gap-6">
         <DriverDetail driverUid={validDriverUid} />
         <DriverDocumentsCard driverUid={validDriverUid} />
       </section>

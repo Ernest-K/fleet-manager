@@ -16,7 +16,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       <div className="min-h-screen">
         <Navbar>
           <h1 className="invisible md:visible basis-0 md:basis-auto font-semibold text-lg">Fleet Manager</h1>
-          <div className="flex gap-8 justify-center items-center">
+          <div className="flex gap-6 justify-center items-center">
             <UserInfo />
             <ThemeToggle />
           </div>

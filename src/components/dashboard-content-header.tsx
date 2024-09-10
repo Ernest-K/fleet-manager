@@ -10,7 +10,7 @@ type DashboardContentHeaderProps = {
 
 function DashboardContentHeader({ title, description, includeBackButton = false, children }: DashboardContentHeaderProps) {
   return (
-    <header className="w-full flex justify-between items-center gap-6 mb-3">
+    <header className="w-full flex justify-between items-center gap-6 mb-6">
       <div className="flex items-center gap-6">
         {includeBackButton && <BackButton />}
         <div>

@@ -35,7 +35,7 @@ function DocumentList({ entityUid }: DocumentListProps) {
   return documents?.length ? (
     <ul className="space-y-2">
       {documents.map((document) => (
-        <li className="flex gap-4 items-center justify-start p-3 bg-muted rounded-md" key={document.uid}>
+        <li className="flex gap-3 items-center justify-start p-3 bg-muted rounded-md" key={document.uid}>
           <FileText className="h-5 w-5" />
           <div>
             <Link href={document.url} target="_blank">
@@ -43,7 +43,7 @@ function DocumentList({ entityUid }: DocumentListProps) {
             </Link>
             <p className="text-xs text-muted-foreground">{document.fileName}</p>
           </div>
-          <div className="ml-auto flex items-center gap-4">
+          <div className="ml-auto flex items-center gap-3">
             <div>
               <p className="hidden sm:block text-sm text-muted-foreground text-right">{new Date(document.createdAt.seconds * 1000).toUTCString()}</p>
               <p className="text-xs text-muted-foreground text-right">{(document.fileSize / 1024).toFixed(2)} KB</p>

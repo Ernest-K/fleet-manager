@@ -23,9 +23,9 @@ function DriverDetail({ driverUid }: DriverDetailProps) {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row justify-evenly gap-4 lg:gap-16 border-[1px] border-border p-6 rounded-lg flex-wrap">
-      <Image src={data.photoURL ? data.photoURL : "/default-profile-photo.jpg"} alt="Profile Photo" width={200} height={200} className="rounded-full aspect-square object-cover self-center" />
-      <div className="flex flex-col justify-evenly gap-4">
+    <div className="flex flex-col lg:flex-row justify-evenly gap-3 lg:gap-16 border-[1px] border-border p-6 rounded-lg flex-wrap">
+      <Image src={data.photoURL ? data.photoURL : "/default-profile-photo.jpg"} alt="Profile Photo" width={200} height={200} className="rounded-full aspect-square object-cover ml-8 sm:ml-0 sm:self-center" />
+      <div className="flex flex-col justify-evenly gap-3">
         <DetailRow Icon={ChevronsLeftRightEllipsis} label="UID" value={driverUid as string} />
         <div className="flex gap-6 items-center">
           <DetailRow Icon={UserRound} label="First name" value={data.firstName} />
@@ -34,7 +34,7 @@ function DriverDetail({ driverUid }: DriverDetailProps) {
         <DetailRow Icon={CircleDot} label="Status" value="Active" />
       </div>
       <Separator orientation="vertical" role="decorative" className="hidden xl:block xl:h-48" />
-      <div className="flex flex-col md:justify-evenly gap-4">
+      <div className="flex flex-col md:justify-evenly gap-3">
         <DetailRow Icon={Mail} label="Email" value={data.email} />
         <DetailRow Icon={Phone} label="Phone" value={data.phone} />
         <DetailRow Icon={IdCard} label="Driver's License Number" value={data.licenseNumber} />

@@ -69,7 +69,7 @@ const ProfilePhotoUploader = ({ uid, currentPhotoURL = "/default-profile-photo.j
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-4">
+    <div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-3">
       <Image src={getProfilePhotoURL()} alt="Profile Photo" width={200} height={200} className="rounded-full aspect-square object-cover self-center" />
       <Input id="picture" type="file" onChange={handleFileChange} accept="image/*" />
       <LoadingButton onClick={handleUpload} label="Upload Photo" loadingLabel="Uploading" isLoading={uploading} disabled={uploading || !file} />

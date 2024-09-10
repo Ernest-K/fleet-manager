@@ -70,7 +70,7 @@ const DocumentsUploader = ({ entityType, entityUid, maxSizeMB = 5, allowedTypes 
 
   return (
     <>
-      <div className="flex flex-row gap-4 flex-wrap">
+      <div className="flex flex-row gap-3 flex-wrap">
         <Input id="document-upload" type="file" accept={allowedTypes.join(", ")} onChange={handleFileChange} className="basis-80 grow" />
         <Input value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Document label" className="basis-80 grow" />
         <LoadingButton label="Upload" loadingLabel="Uploading" isLoading={uploading} onClick={handleUpload} disabled={uploading || !file || !label} className="grow sm:grow-0" />

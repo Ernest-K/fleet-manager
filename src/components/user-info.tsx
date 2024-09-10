@@ -15,7 +15,7 @@ function UserInfo() {
     logout();
   };
   return (
-    <div className="flex gap-4 justify-center items-center">
+    <div className="flex gap-3 justify-center items-center">
       <p>{`${user?.firstName} ${user?.lastName}`}</p>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

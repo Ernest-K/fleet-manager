@@ -113,7 +113,7 @@ function ProfileForm() {
   return (
     <>
       <Form {...profileForm}>
-        <form onSubmit={profileForm.handleSubmit(updateProfileHandler)} className="space-y-4">
+        <form onSubmit={profileForm.handleSubmit(updateProfileHandler)} className="space-y-3">
           <FormField
             control={profileForm.control}
             name="firstName"
@@ -146,7 +146,7 @@ function ProfileForm() {
       </Form>
 
       <Form {...emailForm}>
-        <form onSubmit={emailForm.handleSubmit(updateEmailHandler)} className="space-y-4">
+        <form onSubmit={emailForm.handleSubmit(updateEmailHandler)} className="space-y-3">
           <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
             <FormField
               control={emailForm.control}
@@ -169,7 +169,7 @@ function ProfileForm() {
       </Form>
 
       <Form {...passwordForm}>
-        <form onSubmit={passwordForm.handleSubmit(updatePasswordHandler)} className="space-y-4">
+        <form onSubmit={passwordForm.handleSubmit(updatePasswordHandler)} className="space-y-3">
           <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
             <FormField
               control={passwordForm.control}

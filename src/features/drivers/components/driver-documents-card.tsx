@@ -2,15 +2,14 @@ import React from "react";
 import { Driver } from "@/features/drivers/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import DocumentsUploader from "../../documents/components/documents-uploader";
-import { useQueryClient } from "@tanstack/react-query";
 import DocumentList from "@/features/documents/components/document-list";
+import queryClient from "@/lib/queryClient";
 
 type DriverDocumentsCardProps = {
   driverUid: Driver["uid"];
 };
 
 function DriverDocumentsCard({ driverUid }: DriverDocumentsCardProps) {
-  const queryClient = useQueryClient();
   const allowedTypes = [".pdf", ".doc", ".docx", ".txt"];
   const maxSizeMB = 5;
 
