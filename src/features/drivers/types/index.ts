@@ -24,9 +24,3 @@ export type Driver = User & {
   licenseNumber?: string;
   createdBy: string;
 };
-
-// TODO - CHANGE NAME OF THIS TYPE
-export type Document = {
-  label: string;
-  url: string;
-};

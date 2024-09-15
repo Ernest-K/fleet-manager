@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 import { db } from "@/../../firebase";
-import { EntityDocument } from "../types";
+import { EntityDocument } from "@/features/documents/types";
 
 type getDocumentsOptions = {
   entityUid: string;

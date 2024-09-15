@@ -9,7 +9,7 @@ type createDriverOptions = {
 };
 
 async function createDriver({ driverData, managerUid }: createDriverOptions) {
-  const response = await fetch("/api/creuseQueryClientateDriver", {
+  const response = await fetch("/api/createDriver", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
