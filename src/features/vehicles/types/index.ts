@@ -5,7 +5,7 @@ export const VehicleType = z.enum(["car", "truck", "van", "motorcycle", "bus", "
 export const FuelType = z.enum(["gasoline", "diesel", "electric", "hybrid", "other"]);
 export const TransmissionType = z.enum(["manual", "automatic", "other"]);
 export const Colors = z.enum(["red", "blue", "black", "white", "silver", "gray", "green", "yellow", "orange", "purple", "pink", "brown", "gold", "beige", "cyan", "magenta", "maroon", "navy", "teal", "violet", "turquoise", "olive", "lime", "indigo", "coral", "bronze", "pearl", "charcoal", "burgundy", "mint", "lavender", "champagne", "cream", "other"]);
-export const VehicleStatus = z.enum(["Active", "Inactive"]);
+export const VehicleStatus = z.enum(["active", "inactive"]);
 
 export const createVehicleFormSchema = z
   .object({
@@ -69,4 +69,5 @@ export type Vehicle = {
   insurancePolicyDate: Timestamp;
   status: z.infer<typeof VehicleStatus>;
   notes?: string;
+  photosURL?: string[];
 };

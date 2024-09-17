@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import LoadingButton from "@/components/loading-button";
 import { toast } from "@/components/ui/use-toast";
-import { Driver, editDriverFormSchema } from "@/features/drivers/types";
+import { Driver, DriverStatus, editDriverFormSchema } from "@/features/drivers/types";
 import { useUpdateDriver } from "@/features/drivers/hooks/useUpdateDriver";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type EditDriverFormProps = {
   driver: Driver;
@@ -22,6 +23,7 @@ function EditDriverForm({ driver }: EditDriverFormProps) {
           lastName: driver.lastName,
           phone: driver.phone,
           licenseNumber: driver.licenseNumber,
+          status: driver.status,
         }
       : undefined,
   });
@@ -36,6 +38,7 @@ function EditDriverForm({ driver }: EditDriverFormProps) {
           lastName: values.lastName,
           phone: values.phone,
           licenseNumber: values.licenseNumber,
+          status: values.status,
         },
       },
       {
@@ -102,6 +105,31 @@ function EditDriverForm({ driver }: EditDriverFormProps) {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={profileForm.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Current Status</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select driver status" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {DriverStatus.options.map((type) => (
+                    <SelectItem key={type} value={type.toString()}>
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

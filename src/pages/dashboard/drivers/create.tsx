@@ -9,7 +9,7 @@ const CreateDriverPage = () => {
     <>
       <DashboardContentHeader title="Add new driver" includeBackButton={true} />
       <Separator />
-      <section className="py-6 max-w-xl flex flex-col gap-6">
+      <section className="py-6 flex flex-col gap-6 items-center">
         <CreateDriverForm />
       </section>
     </>

@@ -1,28 +1,16 @@
 import React from "react";
-import { Barcode, Calendar, CalendarCheck, Car, ChevronsLeftRightEllipsis, CircleDot, FileDigit, Fuel, Gauge, IdCard, LucideIcon, Mail, Notebook, Palette, Phone, UserRound } from "lucide-react";
-import { useGetVehicle } from "@/features/vehicles/hooks/useGetVehicle";
+import { Barcode, Calendar, CalendarCheck, Car, ChevronsLeftRightEllipsis, CircleDot, FileDigit, Fuel, Gauge, LucideIcon, Notebook, Palette } from "lucide-react";
 import { format } from "date-fns";
+import { Vehicle } from "@/features/vehicles/types";
 
 type VehicleDetailProps = {
-  vehicleUid: string;
+  vehicle: Vehicle;
 };
 
-function VehicleDetail({ vehicleUid }: VehicleDetailProps) {
-  const validVehicleUid = !vehicleUid || Array.isArray(vehicleUid) ? "" : vehicleUid;
-
-  const { data: vehicle, isLoading } = useGetVehicle({ vehicleUid: validVehicleUid });
-
-  if (isLoading) {
-    return <p>Loading</p>;
-  }
-
-  if (!validVehicleUid || !vehicle) {
-    return <p>Invalid vehicle uid</p>;
-  }
-
+function VehicleDetail({ vehicle }: VehicleDetailProps) {
   return (
     <div className="max-w-xl flex flex-col gap-3 border-[1px] border-border p-6 rounded-lg">
-      <DetailRow Icon={ChevronsLeftRightEllipsis} label="UID" value={vehicleUid as string} />
+      <DetailRow Icon={ChevronsLeftRightEllipsis} label="UID" value={vehicle.uid} />
       <div className="flex flex-col sm:flex-row gap-6 ">
         <DetailRow Icon={Car} label="Type" value={vehicle.vehicleType} />
         <div className="flex gap-6 ml-10 sm:ml-0">
@@ -60,7 +48,7 @@ const DetailRow = ({ Icon, label, value }: DetailRowProps) => (
     {Icon && <Icon className="w-4 h-4 md:w-6 md:h-6 text-muted-foreground flex-shrink-0" />}
     <div>
       <p className="text-sm text-muted-foreground capitalize">{label}</p>
-      {value ? <p className="md:text-lg capitalize">{value}</p> : <p className="md:text-lg">n/a</p>}
+      {value ? <p className="md:text-lg">{value}</p> : <p className="md:text-lg">n/a</p>}
     </div>
   </div>
 );

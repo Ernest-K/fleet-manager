@@ -9,13 +9,13 @@ type GetVehicleOptions = {
 
 const getVehicle = async ({ vehicleUid }: GetVehicleOptions) => {
   const docSnapshot = await getDoc(doc(db, "vehicles", vehicleUid));
-  return (await docSnapshot.data()) as Vehicle;
+  return { uid: docSnapshot.id, ...docSnapshot.data() } as Vehicle;
 };
 
 export const useGetVehicle = ({ vehicleUid }: GetVehicleOptions) => {
   return useQuery({
     queryFn: () => getVehicle({ vehicleUid }),
-    queryKey: ["vehicles", vehicleUid],
+    queryKey: ["vehicle", vehicleUid],
     enabled: !!vehicleUid,
   });
 };

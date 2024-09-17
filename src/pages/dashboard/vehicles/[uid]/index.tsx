@@ -10,6 +10,10 @@ import { toast } from "@/components/ui/use-toast";
 import DashboardContentHeader from "@/components/dashboard-content-header";
 import { useDeleteVehicle } from "@/features/vehicles/hooks/useDeleteVehicle";
 import VehicleDetail from "@/features/vehicles/components/vehicle-detail";
+import VehicleDocumentsCard from "@/features/vehicles/components/vehicle-documents-card";
+import VehiclePhotoUploader from "@/features/vehicles/components/vehicle-photo-uploader";
+import { useGetVehicle } from "@/features/vehicles/hooks/useGetVehicle";
+import queryClient from "@/lib/queryClient";
 
 const VehicleDetailPage = () => {
   const router = useRouter();
@@ -17,6 +21,7 @@ const VehicleDetailPage = () => {
   const { authUser } = useAuth();
   const { mutate: deleteVehicle, isPending } = useDeleteVehicle({ managerUid: authUser!.uid });
   const validVehicleUid = !vehicleUid || Array.isArray(vehicleUid) ? "" : vehicleUid;
+  const { data: vehicle, isLoading } = useGetVehicle({ vehicleUid: validVehicleUid });
 
   const handleDeleteVehicle = () => {
     deleteVehicle(validVehicleUid, {
@@ -29,7 +34,11 @@ const VehicleDetailPage = () => {
     });
   };
 
-  if (!validVehicleUid) {
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
+
+  if (!validVehicleUid || !vehicle) {
     return <p>Invalid vehicle uid</p>;
   }
 
@@ -64,9 +73,18 @@ const VehicleDetailPage = () => {
           </AlertDialog>
         </div>
       </DashboardContentHeader>
-      <section className="flex flex-col gap-6">
-        <VehicleDetail vehicleUid={validVehicleUid} />
-        {/* <DriverDocumentsCard driverUid={validDriverUid} /> */}
+      <section className="flex flex-col gap-6 pb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <VehicleDetail vehicle={vehicle} />
+          <VehiclePhotoUploader
+            vehicleUid={vehicle.uid}
+            photosURL={vehicle?.photosURL}
+            onUpload={() => {
+              queryClient.invalidateQueries({ queryKey: ["vehicle", validVehicleUid] });
+            }}
+          />
+        </div>
+        <VehicleDocumentsCard vehicleUid={validVehicleUid} />
       </section>
     </>
   );

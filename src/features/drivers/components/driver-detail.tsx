@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { ChevronsLeftRightEllipsis, CircleDot, IdCard, LucideIcon, Mail, Phone, UserRound } from "lucide-react";
-
 import { useGetDriver } from "@/features/drivers/hooks/useGetDriver";
 import { Separator } from "@/components/ui/separator";
 
@@ -31,7 +30,7 @@ function DriverDetail({ driverUid }: DriverDetailProps) {
           <DetailRow Icon={UserRound} label="First name" value={data.firstName} />
           <DetailRow label="Last name" value={data.lastName} />
         </div>
-        <DetailRow Icon={CircleDot} label="Status" value="Active" />
+        <DetailRow Icon={CircleDot} label="Status" value={data.status} />
       </div>
       <Separator orientation="vertical" role="decorative" className="hidden xl:block xl:h-48" />
       <div className="flex flex-col md:justify-evenly gap-3">
@@ -53,7 +52,7 @@ const DetailRow = ({ Icon, label, value }: DetailRowProps) => (
   <div className="flex gap-6 items-center">
     {Icon && <Icon className="w-4 h-4 md:w-6 md:h-6 text-muted-foreground flex-shrink-0" />}
     <div>
-      <p className="text-sm text-muted-foreground">{label}</p>
+      <p className="text-sm text-muted-foreground capitalize">{label}</p>
       {value ? <p className="md:text-lg">{value}</p> : <p className="md:text-lg">n/a</p>}
     </div>
   </div>
