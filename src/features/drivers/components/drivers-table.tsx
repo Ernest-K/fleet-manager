@@ -2,7 +2,7 @@ import React from "react";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useAuth } from "@/providers/auth-provider";
 import { useGetDrivers } from "@/features/drivers/hooks/useGetDrivers";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { Trash2 } from "lucide-react";
@@ -10,6 +10,7 @@ import { useDeleteDriver } from "@/features/drivers/hooks/useDeleteDriver";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 function DriverTable() {
   const { authUser } = useAuth();
@@ -34,6 +35,7 @@ function DriverTable() {
           <TableHead>Photo</TableHead>
           <TableHead>First name</TableHead>
           <TableHead>Last name</TableHead>
+          <TableHead>Status</TableHead>
           <TableHead>Email</TableHead>
           <TableHead>Phone</TableHead>
           <TableHead>Driver&apos;s License Number</TableHead>
@@ -52,6 +54,9 @@ function DriverTable() {
               </TableCell>
               <TableCell>{driver.firstName}</TableCell>
               <TableCell>{driver.lastName}</TableCell>
+              <TableCell>
+                <Badge>{driver.status}</Badge>
+              </TableCell>
               <TableCell>{driver.email}</TableCell>
               <TableCell>{driver.phone}</TableCell>
               <TableCell>{driver.licenseNumber}</TableCell>
