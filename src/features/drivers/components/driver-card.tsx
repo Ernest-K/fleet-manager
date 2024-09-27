@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronsLeftRightEllipsis, CircleDot, Eye, UserRound } from "lucide-react";
+import { ChevronsLeftRightEllipsis, CircleDot, SquareArrowOutUpRight, UserRound } from "lucide-react";
 import Link from "next/link";
 import { Driver } from "@/features/drivers/types";
 import Image from "next/image";
@@ -11,9 +11,9 @@ type DriverCardProps = {
 
 const DriverCard = ({ driver }: DriverCardProps) => (
   <div className="border-border border-[1px] rounded-lg p-6 flex flex-col justify-center gap-3 relative grow">
-    <Button asChild variant="secondary" size="icon" className="absolute top-6 right-6">
+    <Button asChild variant="ghost" size="icon" className="absolute top-6 right-6">
       <Link href={`/dashboard/drivers/${driver.uid}`} target="_blank">
-        <Eye className="w-4 h-4" />
+        <SquareArrowOutUpRight className="w-4 h-4" />
       </Link>
     </Button>
     <Image src={driver.photoURL ? driver.photoURL : "/default-profile-photo.jpg"} alt="Profile Photo" width={150} height={150} className="rounded-full aspect-square object-cover ml-8 sm:ml-0 sm:self-center" />

@@ -11,6 +11,8 @@ import { useAuth } from "@/providers/auth-provider";
 import { toast } from "@/components/ui/use-toast";
 import DashboardContentHeader from "@/components/dashboard-content-header";
 import DriverDocumentsCard from "@/features/drivers/components/driver-documents-card";
+import EntityAssignmentTable from "@/features/assignments/components/entity-assignment-table";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const DriverDetailPage = () => {
   const router = useRouter();
@@ -68,6 +70,15 @@ const DriverDetailPage = () => {
       <section className="flex flex-col gap-6">
         <DriverDetail driverUid={validDriverUid} />
         <DriverDocumentsCard driverUid={validDriverUid} />
+        <Card>
+          <CardHeader>
+            <CardTitle>Assignments</CardTitle>
+            <CardDescription>List of vehicles assigned to this driver.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <EntityAssignmentTable entityType="driver" entityUid={validDriverUid} />
+          </CardContent>
+        </Card>
       </section>
     </>
   );

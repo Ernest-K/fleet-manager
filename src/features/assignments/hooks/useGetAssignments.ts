@@ -7,16 +7,28 @@ import { Assignment } from "@/features/assignments/types";
 
 type UseGetAssignmentsOptions = {
   managerUid: string;
+  driverUid?: string;
+  vehicleUid?: string;
 };
 
-export const useGetAssignments = ({ managerUid }: UseGetAssignmentsOptions) => {
+export const useGetAssignments = ({ managerUid, driverUid, vehicleUid }: UseGetAssignmentsOptions) => {
   const { data: drivers, isLoading: isLoadingDrivers, isError: isErrorDrivers } = useGetDrivers({ managerUid });
   const { data: vehicles, isLoading: isLoadingVehicles, isError: isErrorVehicles } = useGetVehicles({ managerUid });
 
   const queryResult = useQuery({
     queryFn: async () => {
       const assignmentsRef = collection(db, "assignments");
-      const assignmentsQuery = query(assignmentsRef, where("createdBy", "==", managerUid));
+      let assignmentsQuery;
+
+      // Filter assignments based on driverUid or vehicleUid
+      if (driverUid) {
+        assignmentsQuery = query(assignmentsRef, where("driverUid", "==", driverUid));
+      } else if (vehicleUid) {
+        assignmentsQuery = query(assignmentsRef, where("vehicleUid", "==", vehicleUid));
+      } else {
+        assignmentsQuery = query(assignmentsRef, where("createdBy", "==", managerUid));
+      }
+
       const querySnapshot = await getDocs(assignmentsQuery);
 
       // Step 1: Fetch all assignments
@@ -38,7 +50,7 @@ export const useGetAssignments = ({ managerUid }: UseGetAssignmentsOptions) => {
 
       return assignments;
     },
-    queryKey: ["assignments", managerUid],
+    queryKey: ["assignments", managerUid, driverUid, vehicleUid],
     enabled: !!managerUid && !isLoadingDrivers && !isLoadingVehicles && !isErrorDrivers && !isErrorVehicles, // TODO, Only fetch if drivers and vehicles are loaded and no errors
   });
 

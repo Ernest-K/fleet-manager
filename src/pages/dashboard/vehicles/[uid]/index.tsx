@@ -14,6 +14,8 @@ import VehicleDocumentsCard from "@/features/vehicles/components/vehicle-documen
 import VehiclePhotoUploader from "@/features/vehicles/components/vehicle-photo-uploader";
 import { useGetVehicle } from "@/features/vehicles/hooks/useGetVehicle";
 import queryClient from "@/lib/queryClient";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import EntityAssignmentTable from "@/features/assignments/components/entity-assignment-table";
 
 const VehicleDetailPage = () => {
   const router = useRouter();
@@ -85,6 +87,15 @@ const VehicleDetailPage = () => {
           />
         </div>
         <VehicleDocumentsCard vehicleUid={validVehicleUid} />
+        <Card>
+          <CardHeader>
+            <CardTitle>Assignments</CardTitle>
+            <CardDescription>List of drivers assigned to this vehicle.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <EntityAssignmentTable entityType="vehicle" entityUid={validVehicleUid} />
+          </CardContent>
+        </Card>
       </section>
     </>
   );
