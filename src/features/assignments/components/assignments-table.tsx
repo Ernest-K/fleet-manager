@@ -61,11 +61,11 @@ function AssignmentTable() {
                   <AvatarFallback>FM</AvatarFallback>
                 </Avatar>
               </TableCell>
-              <TableCell>{assignment.driver.firstName}</TableCell>
-              <TableCell>{assignment.driver.lastName}</TableCell>
-              <TableCell>{assignment.vehicle.make}</TableCell>
-              <TableCell>{assignment.vehicle.model}</TableCell>
-              <TableCell>{assignment.vehicle.licensePlateNumber}</TableCell>
+              <TableCell>{assignment.driver?.firstName}</TableCell>
+              <TableCell>{assignment.driver?.lastName}</TableCell>
+              <TableCell>{assignment.vehicle?.make}</TableCell>
+              <TableCell>{assignment.vehicle?.model}</TableCell>
+              <TableCell>{assignment.vehicle?.licensePlateNumber}</TableCell>
               <TableCell>{format(assignment.dateRange.from.toDate(), "PP")}</TableCell>
               <TableCell>{format(assignment.dateRange.to.toDate(), "PP")}</TableCell>
               <TableCell className="text-center sm:gap-3 flex flex-col sm:flex-row justify-center items-center">

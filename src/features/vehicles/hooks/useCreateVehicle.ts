@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import queryClient from "@/lib/queryClient";
-import { createVehicleFormSchema } from "../types";
+import { vehicleFormSchema } from "@/features/vehicles/types";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/../firebase";
 
 type createVehicleOptions = {
-  vehicleData: z.infer<typeof createVehicleFormSchema>;
+  vehicleData: z.infer<typeof vehicleFormSchema>;
   managerUid: string;
 };
 

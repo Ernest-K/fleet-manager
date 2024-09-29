@@ -1,13 +1,14 @@
+import { colorMap } from "@/lib/utils";
 import { Timestamp } from "firebase/firestore";
 import { z } from "zod";
 
 export const VehicleType = z.enum(["car", "truck", "van", "motorcycle", "bus", "other"]);
 export const FuelType = z.enum(["gasoline", "diesel", "electric", "hybrid", "other"]);
 export const TransmissionType = z.enum(["manual", "automatic", "other"]);
-export const Colors = z.enum(["red", "blue", "black", "white", "silver", "gray", "green", "yellow", "orange", "purple", "pink", "brown", "gold", "beige", "cyan", "magenta", "maroon", "navy", "teal", "violet", "turquoise", "olive", "lime", "indigo", "coral", "bronze", "pearl", "charcoal", "burgundy", "mint", "lavender", "champagne", "cream", "other"]);
 export const VehicleStatus = z.enum(["active", "inactive"]);
+export const Colors = z.enum(Object.keys(colorMap) as [string, ...string[]]);
 
-export const createVehicleFormSchema = z
+export const vehicleFormSchema = z
   .object({
     vehicleType: VehicleType,
     make: z.string().min(1, { message: "Make is required" }),

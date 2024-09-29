@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Colors, createVehicleFormSchema, FuelType, VehicleStatus, VehicleType } from "@/features/vehicles/types";
+import { Colors, vehicleFormSchema, FuelType, Vehicle, VehicleStatus, VehicleType } from "@/features/vehicles/types";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, colorMap } from "@/lib/utils";
 import { format } from "date-fns";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/providers/auth-provider";
@@ -20,17 +20,47 @@ import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/router";
 import { Textarea } from "@/components/ui/textarea";
 import vehicleData from "@/../public/make-model-list.json";
+import { useUpdateVehicle } from "@/features/vehicles/hooks/useUpdateVehicle";
 
-const currentYear = new Date().getFullYear();
-const years = Array.from({ length: 50 }, (_, i) => (currentYear - i).toString());
+const CURRENT_YEAR = new Date().getFullYear();
+const YEARS = Array.from({ length: 50 }, (_, i) => (CURRENT_YEAR - i).toString());
 
-function CreateVehicleForm() {
+type VehicleFormProps = {
+  vehicle?: Vehicle;
+};
+
+type FormValues = z.infer<typeof vehicleFormSchema>;
+
+function VehicleForm({ vehicle }: VehicleFormProps) {
   const { authUser } = useAuth();
-  const { mutate: createVehicle, isPending } = useCreateVehicle({ managerUid: authUser!.uid });
+  const { mutate: createVehicle, isPending: isCreating } = useCreateVehicle({ managerUid: authUser!.uid });
+  const { mutate: updateVehicle, isPending: isUpdating } = useUpdateVehicle();
+
   const router = useRouter();
   const [availableModels, setAvailableModels] = useState<string[]>([]);
-  const form = useForm<z.infer<typeof createVehicleFormSchema>>({
-    resolver: zodResolver(createVehicleFormSchema),
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(vehicleFormSchema),
+    defaultValues: vehicle
+      ? {
+          vehicleType: vehicle.vehicleType,
+          make: vehicleData.find((v) => v.make === vehicle.make) ? vehicle.make : "Other",
+          model: vehicleData.find((v) => v.models.includes(vehicle.model)) ? vehicle.model : "Other",
+          customMake: vehicleData.find((v) => v.make === vehicle.make) ? undefined : vehicle.make,
+          customModel: vehicleData.find((v) => v.models.includes(vehicle.model)) ? undefined : vehicle.model,
+          year: vehicle.year,
+          vin: vehicle.vin,
+          fuelType: vehicle.fuelType,
+          color: vehicle.color,
+          licensePlateNumber: vehicle.licensePlateNumber,
+          registration: vehicle.registration,
+          odometerReading: vehicle.odometerReading,
+          technicalInspectionDate: vehicle.technicalInspectionDate.toDate(),
+          insurancePolicyDate: vehicle.insurancePolicyDate.toDate(),
+          status: vehicle.status,
+          notes: vehicle.notes,
+        }
+      : undefined,
   });
   const { watch, setValue } = form;
   const selectedMake = watch("make");
@@ -46,7 +76,7 @@ function CreateVehicleForm() {
     }
   }, [selectedMake]);
 
-  const prepareVehicleValues = (vehicleValues: z.infer<typeof createVehicleFormSchema>) => {
+  const prepareVehicleValues = (vehicleValues: FormValues) => {
     return {
       vehicleType: vehicleValues.vehicleType,
       make: vehicleValues.make === "Other" ? vehicleValues.customMake || "" : vehicleValues.make,
@@ -65,17 +95,34 @@ function CreateVehicleForm() {
     };
   };
 
-  const onSubmit = (data: z.infer<typeof createVehicleFormSchema>) => {
+  const onSubmit = (data: FormValues) => {
     const finalVehicleValues = prepareVehicleValues(data);
 
-    createVehicle(finalVehicleValues, {
-      onSuccess: (data) => {
-        toast({
-          description: "Vehicle created successfully",
-        });
-        router.push("/dashboard/vehicles");
-      },
-    });
+    if (vehicle) {
+      updateVehicle(
+        {
+          vehicleUid: vehicle.uid,
+          data: finalVehicleValues,
+        },
+        {
+          onSuccess: (data) => {
+            toast({
+              description: "Vehicle updated successfully",
+            });
+            router.back();
+          },
+        }
+      );
+    } else {
+      createVehicle(finalVehicleValues, {
+        onSuccess: (data) => {
+          toast({
+            description: "Vehicle created successfully",
+          });
+          router.back();
+        },
+      });
+    }
   };
 
   return (
@@ -127,11 +174,6 @@ function CreateVehicleForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {/* {Object.keys(vehicleData).map((make) => (
-                          <SelectItem key={make} value={make}>
-                            {make}
-                          </SelectItem>
-                        ))} */}
                         {vehicleData.map((vehicle) => (
                           <SelectItem key={vehicle.make} value={vehicle.make}>
                             {vehicle.make}
@@ -220,7 +262,7 @@ function CreateVehicleForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {years.map((year) => (
+                      {YEARS.map((year) => (
                         <SelectItem key={year} value={year}>
                           {year}
                         </SelectItem>
@@ -247,7 +289,10 @@ function CreateVehicleForm() {
                     <SelectContent>
                       {Colors.options.map((color) => (
                         <SelectItem key={color} value={color}>
-                          {color.charAt(0).toUpperCase() + color.slice(1)}
+                          <div className="flex items-center gap-3">
+                            <div className="w-5 h-5 rounded-full border-border border-2" aria-label={color} style={{ backgroundColor: colorMap[color] || "#CCCCCC" }}></div>
+                            <span>{color.charAt(0).toUpperCase() + color.slice(1)}</span>
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -458,10 +503,10 @@ function CreateVehicleForm() {
           />
         </div>
 
-        <LoadingButton type="submit" isLoading={isPending} label="Create" className="w-full" loadingLabel="Creating" />
+        <LoadingButton type="submit" isLoading={isCreating || isUpdating} label={vehicle ? "Update" : "Create"} className="w-full" loadingLabel={vehicle ? "Updating" : "Creating"} />
       </form>
     </Form>
   );
 }
 
-export default CreateVehicleForm;
+export default VehicleForm;

@@ -1,14 +1,14 @@
 import { Driver } from "@/features/drivers/types";
 import { Vehicle } from "@/features/vehicles/types";
 import React, { ReactNode } from "react";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import DriverCard from "@/features/drivers/components/driver-card";
 import VehicleCard from "@/features/vehicles/components/vehicle-card";
 
 type AssignmentSheetProps = {
   trigger: ReactNode;
-  driver: Driver;
-  vehicle: Vehicle;
+  driver?: Driver;
+  vehicle?: Vehicle;
 };
 
 function AssignmentSheet({ trigger, driver, vehicle }: AssignmentSheetProps) {
@@ -20,8 +20,8 @@ function AssignmentSheet({ trigger, driver, vehicle }: AssignmentSheetProps) {
           <SheetTitle>Assignment details</SheetTitle>
         </SheetHeader>
         <div className="mt-6 space-y-6">
-          <DriverCard driver={driver} />
-          <VehicleCard vehicle={vehicle} />
+          {driver && <DriverCard driver={driver} />}
+          {vehicle && <VehicleCard vehicle={vehicle} />}
         </div>
       </SheetContent>
     </Sheet>
