@@ -7,6 +7,7 @@ import ProfilePhotoUploader from "@/components/profile-photo-uploader";
 import EditDriverForm from "@/features/drivers/components/edit-driver-form";
 import DashboardContentHeader from "@/components/dashboard-content-header";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const DriverEditPage = () => {
   const router = useRouter();
@@ -26,9 +27,16 @@ const DriverEditPage = () => {
   return (
     <>
       <DashboardContentHeader title="Edit driver" includeBackButton={true} />
-      <section className="py-5 max-w-2xl flex flex-col gap-6">
-        <ProfilePhotoUploader uid={driver.uid} currentPhotoURL={driver.photoURL} />
-        <EditDriverForm driver={driver} />
+      <Separator />
+      <section className="py-6 flex flex-col gap-6 items-center">
+        <div className="space-y-6">
+          <header>
+            <h3 className="text-lg font-medium">Basic Information</h3>
+            <p className="text-sm text-muted-foreground">Update the fundamental details of the driver.</p>
+          </header>
+          <ProfilePhotoUploader uid={driver.uid} currentPhotoURL={driver.photoURL} />
+          <EditDriverForm driver={driver} />
+        </div>
       </section>
     </>
   );

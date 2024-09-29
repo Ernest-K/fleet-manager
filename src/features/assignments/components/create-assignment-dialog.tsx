@@ -3,8 +3,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 
 import CreateAssignmentForm from "./create-assignment-form";
 
-const TODAY = new Date();
-
 type CreateAssignmentDialogProps = {
   trigger: ReactNode;
 };

@@ -135,7 +135,7 @@ function EditDriverForm({ driver }: EditDriverFormProps) {
           )}
         />
 
-        <LoadingButton type="submit" isLoading={isPending} label="Update" loadingLabel="Updating" />
+        <LoadingButton type="submit" isLoading={isPending} label="Update" loadingLabel="Updating" className="w-full" />
       </form>
     </Form>
   );

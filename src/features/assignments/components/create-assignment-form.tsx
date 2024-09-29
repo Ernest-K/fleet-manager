@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import DriverCard from "@/features/drivers/components/driver-card";
 import VehicleCard from "@/features/vehicles/components/vehicle-card";
 import { Badge } from "@/components/ui/badge";
+import PlaceholderCard from "@/components/placeholder-card";
 
 type CreateAssignmentFormProps = {
   onSubmit?: () => void;
@@ -176,16 +177,5 @@ function CreateAssignmentForm({ onSubmit: onFormSubmit, onCancel }: CreateAssign
     </Form>
   );
 }
-
-type PlaceholderCardProps = {
-  text: string;
-};
-
-const PlaceholderCard = ({ text }: PlaceholderCardProps) => (
-  <div className="border-border border-[1px] rounded-lg flex flex-col gap-3 justify-center items-center min-h-96">
-    <MoveUp className="h-10 w-10 text-muted-foreground animate-bounce" />
-    <p className="text-muted-foreground">{text}</p>
-  </div>
-);
 
 export default CreateAssignmentForm;

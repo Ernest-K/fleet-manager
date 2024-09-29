@@ -11,6 +11,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/router";
 import { useAuth } from "@/providers/auth-provider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 
 function CreateDriverForm() {
   const { authUser } = useAuth();
@@ -123,7 +124,7 @@ function CreateDriverForm() {
             )}
           />
         </div>
-
+        <Separator />
         <div className="space-y-3">
           <header>
             <h3 className="text-lg font-medium">Account Information</h3>

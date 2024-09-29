@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+export const enum Role {
+  Manager = "manager",
+  Driver = "driver",
+}
+
 export const loginFormSchema = z.object({
   email: z.string().email().min(1, "Email is required"),
   password: z.string().min(1, "Password is required"),
@@ -14,7 +19,7 @@ export const registerFormSchema = z.object({
 
 export type User = {
   uid: string;
-  role: string;
+  role: Role;
   firstName: string;
   lastName: string;
   email: string;
