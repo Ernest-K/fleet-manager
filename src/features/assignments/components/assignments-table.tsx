@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { useDeleteAssignment } from "@/features/assignments/hooks/useDeleteAssignment";
 import { Icons } from "@/components/ui/icons";
 import AssignmentSheet from "@/features/assignments/components/assignment-sheet";
+import NoData from "@/components/no-data";
 
 function AssignmentTable() {
   const { authUser } = useAuth();
@@ -31,6 +32,8 @@ function AssignmentTable() {
       },
     });
   };
+
+  if (data && !data.length) return <NoData title="No assignments found" description="There are currently no assignments in your fleet." />;
 
   return (
     <Table>

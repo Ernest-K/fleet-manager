@@ -11,6 +11,7 @@ import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import NoData from "@/components/no-data";
 
 function DriverTable() {
   const { authUser } = useAuth();
@@ -26,6 +27,8 @@ function DriverTable() {
       },
     });
   };
+
+  if (data && !data.length) return <NoData title="No Drivers Available" description="It seems that no drivers are currently associated with your fleet." />;
 
   return (
     <Table>

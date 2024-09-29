@@ -11,6 +11,7 @@ import { useGetVehicles } from "@/features/vehicles/hooks/useGetVehicles";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { useDeleteVehicle } from "@/features/vehicles/hooks/useDeleteVehicle";
+import NoData from "@/components/no-data";
 
 function VehicleTable() {
   const { authUser } = useAuth();
@@ -26,6 +27,8 @@ function VehicleTable() {
       },
     });
   };
+
+  if (data && !data.length) return <NoData title="No Vehicles Found" description="Your fleet has no vehicles at the moment." />;
 
   return (
     <Table>

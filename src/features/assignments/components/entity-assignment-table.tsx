@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { useDeleteAssignment } from "@/features/assignments/hooks/useDeleteAssignment";
 import { Icons } from "@/components/ui/icons";
 import Link from "next/link";
+import NoData from "@/components/no-data";
 
 type EntityAssignmentTableProps = {
   entityUid: string;
@@ -40,6 +41,8 @@ function EntityAssignmentTable({ entityUid, entityType }: EntityAssignmentTableP
       },
     });
   };
+
+  if (assignments && !assignments.length) return <NoData title="No assignments found" description="There are currently no assignments with this entity." />;
 
   return (
     <Table>
