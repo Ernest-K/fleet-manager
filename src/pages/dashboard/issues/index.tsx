@@ -3,18 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import CreateIssueDialog from "@/features/issues/components/create-issue-dialog";
 import IssuesTable from "@/features/issues/components/issues-table";
-import { useGetIssues } from "@/features/issues/hooks/useGetIssues";
 import { DashboardLayout } from "@/layouts/dashboard-layout";
 import { useAuth } from "@/providers/auth-provider";
 import { TriangleAlert } from "lucide-react";
 import { ReactElement } from "react";
 
 const IssuesPage = () => {
-  const { authUser } = useAuth();
-  // const { data, isLoading } = useGetIssues({ managerUid: authUser!.uid });
-
-  // console.log(data);
-
   return (
     <>
       <DashboardContentHeader title="Issues">

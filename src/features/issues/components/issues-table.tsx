@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useAuth } from "@/providers/auth-provider";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { ClipboardList, Eye, X } from "lucide-react";
+import { Eye, X } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
@@ -47,6 +47,7 @@ function IssueTable() {
           <TableHead>Reported by</TableHead>
           <TableHead>Reported At</TableHead>
           <TableHead>Vehicle</TableHead>
+          <TableHead>Issue type</TableHead>
           <TableHead>Severity</TableHead>
           <TableHead>Status</TableHead>
           <TableHead className="max-w-16 text-center">Actions</TableHead>
@@ -77,6 +78,9 @@ function IssueTable() {
               </TableCell>
               <TableCell>{format(issue.reportedAt.toDate(), "PP - HH:mm")}</TableCell>
               <TableCell>{issue.vehicle && <Link className={`${buttonVariants({ variant: "link" })} px-0`} href={`/dashboard/vehicles/${issue.vehicle?.uid}`}>{`${issue.vehicle?.make} ${issue.vehicle?.model}`}</Link>}</TableCell>
+              <TableCell>
+                <span className="capitalize">{issue.type}</span>
+              </TableCell>
               <TableCell>
                 <div className="flex gap-3 items-center">
                   <div className={`w-4 h-4 rounded-full ${SeverityColors[issue.severity]}`} aria-label={issue.severity}></div>

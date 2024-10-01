@@ -1,7 +1,7 @@
 import React from "react";
 import { Issue } from "@/features/issues/types";
 import DetailRow from "@/components/detail-row";
-import { CalendarIcon, Circle, CircleDot, Notebook, UserRound } from "lucide-react";
+import { CalendarIcon, Circle, CircleDot, FileWarning, Notebook, UserRound } from "lucide-react";
 import { format } from "date-fns";
 
 type IssueCardProps = {
@@ -21,6 +21,7 @@ function IssueCard({ issue }: IssueCardProps) {
             </div>
           </div>
         )}
+        <DetailRow Icon={FileWarning} label="Issue type" value={issue.type} />
         <DetailRow Icon={Circle} label="Severity" value={issue.severity} />
         <DetailRow Icon={CircleDot} label="Status" value={issue.status} />
         <DetailRow Icon={CalendarIcon} label="Reported at" value={format(issue.reportedAt.toDate(), "PP - HH:mm")} />

@@ -3,10 +3,12 @@ import React from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../providers/auth-provider";
-import { User } from "@/features/auth/types";
+import { Role, User } from "@/features/auth/types";
+import { Driver } from "@/features/drivers/types";
+import { CollectionNames } from "@/types";
 
 interface UserContextProps {
-  user: User | null;
+  user: User | Driver | null;
   refreshUser: () => Promise<void>;
 }
 
@@ -14,12 +16,12 @@ const UserContext = createContext<UserContextProps>({ user: null, refreshUser: a
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const { authUser } = useAuth();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | Driver | null>(null);
 
   const fetchUser = async () => {
     if (authUser) {
-      const userDoc = await getDoc(doc(db, "users", authUser.uid));
-      setUser(userDoc.exists() ? (userDoc.data() as User) : null);
+      const userDoc = await getDoc(doc(db, CollectionNames.Users, authUser.uid));
+      setUser(userDoc.exists() ? (userDoc.data().role === Role.Manager ? (userDoc.data() as User) : (userDoc.data() as Driver)) : null);
     } else {
       setUser(null);
     }

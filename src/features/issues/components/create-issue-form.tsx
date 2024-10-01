@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { createIssueFormSchema, IssueStatus, Severity, SeverityColors } from "@/features/issues/types";
+import { createIssueFormSchema, IssueStatus, IssueType, Severity, SeverityColors } from "@/features/issues/types";
 import { useGetVehicles } from "@/features/vehicles/hooks/useGetVehicles";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -89,6 +89,30 @@ function CreateIssueForm({ vehicleUid, onSubmit: onFormSubmit, onCancel }: Creat
           />
           {selectedVehicle ? <VehicleCard vehicle={selectedVehicle} /> : <PlaceholderCard text="Select vehicle" />}
         </div>
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Type</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select issue type" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {IssueType.options.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="severity"

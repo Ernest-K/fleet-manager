@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,8 @@ import { useRouter } from "next/router";
 import { useAuth } from "@/providers/auth-provider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function CreateDriverForm() {
   const { authUser } = useAuth();
@@ -20,6 +22,7 @@ function CreateDriverForm() {
   const form = useForm<z.infer<typeof createDriverFormSchema>>({
     resolver: zodResolver(createDriverFormSchema),
   });
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const onSubmit = (values: z.infer<typeof createDriverFormSchema>) => {
     createDriver(values, {
@@ -153,7 +156,12 @@ function CreateDriverForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <div className="relative">
+                    <Input type={showPassword ? "text" : "password"} {...field} />
+                    <Button type="button" variant="ghost" size="icon" className="absolute right-0 top-0 h-full px-3" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}>
+                      {showPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
+                    </Button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
