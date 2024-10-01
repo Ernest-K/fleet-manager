@@ -1,31 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import { z } from "zod";
 import queryClient from "@/lib/queryClient";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/../firebase";
-import { createIssueFormSchema } from "@/features/issues/types";
-
-type CreateIssueOptions = {
-  issueData: z.infer<typeof createIssueFormSchema> & { reportedBy: string; reportedAt: Date };
-  managerUid: string;
-};
-
-async function createIssue({ issueData, managerUid }: CreateIssueOptions) {
-  await addDoc(collection(db, "issues"), {
-    ...issueData,
-    managerUid: managerUid,
-  });
-}
+import { IssueFormData } from "@/features/issues/types";
+import { CreateDocOptions, createDocument } from "@/lib/helpers";
+import { CollectionNames } from "@/types";
 
 type UseCreateIssueOptions = {
+  userUid: string;
   managerUid: string;
 };
 
-export function useCreateIssue({ managerUid }: UseCreateIssueOptions) {
+export function useCreateIssue({ userUid, managerUid }: UseCreateIssueOptions) {
   return useMutation({
-    mutationFn: (issueData: CreateIssueOptions["issueData"]) => createIssue({ issueData, managerUid }),
+    mutationFn: (issueData: CreateDocOptions<IssueFormData>["data"]) => createDocument<IssueFormData>({ collectionName: CollectionNames.Issues, data: issueData, managerUid }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["issues", managerUid] });
+      queryClient.invalidateQueries({ queryKey: [CollectionNames.Issues, userUid] });
     },
   });
 }

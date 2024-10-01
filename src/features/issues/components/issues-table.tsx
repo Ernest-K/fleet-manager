@@ -7,19 +7,22 @@ import { toast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
 import { Icons } from "@/components/ui/icons";
-import { useGetIssues } from "../hooks/useGetIssues";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { SeverityColors } from "../types";
+import { Issue, SeverityColors } from "../types";
 import { Role } from "@/features/auth/types";
 import { useDeleteIssue } from "@/features/issues/hooks/useDeleteIssue";
 import IssueSheet from "@/features/issues/components/issue-sheet";
 import NoData from "@/components/no-data";
 
-function IssueTable() {
+type IssueTableProps = {
+  issues: Issue[] | undefined;
+};
+
+function IssueTable({ issues }: IssueTableProps) {
   const { authUser } = useAuth();
-  const { data, isLoading } = useGetIssues({ managerUid: authUser!.uid });
-  const { mutate: deleteIssue, isPending } = useDeleteIssue({ managerUid: authUser!.uid });
+
+  const { mutate: deleteIssue, isPending } = useDeleteIssue({ userUid: authUser!.uid });
   const [deletingIssueUid, setDeletingIssueUid] = useState<string | null>(null);
 
   const handleDeleteIssue = (issueUid: string) => {
@@ -37,7 +40,7 @@ function IssueTable() {
     });
   };
 
-  if (data && !data.length) return <NoData title="No issues reported" />;
+  if (!issues || !issues.length) return <NoData title="No issues reported" />;
 
   return (
     <Table>
@@ -54,29 +57,29 @@ function IssueTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data &&
-          data.map((issue) => (
+        {issues &&
+          issues.map((issue) => (
             <TableRow key={issue.uid}>
               <TableCell className="flex items-center">
-                {issue.reportedByUser?.role === Role.Driver ? (
-                  <Link className={`${buttonVariants({ variant: "link" })} px-0 space-x-3`} href={`/dashboard/drivers/${issue.reportedByUser?.uid}`}>
+                {issue.createdByUser?.role === Role.Driver ? (
+                  <Link className={`${buttonVariants({ variant: "link" })} px-0 space-x-3`} href={`/dashboard/drivers/${issue.createdByUser?.uid}`}>
                     <Avatar>
-                      <AvatarImage src={issue.reportedByUser?.photoURL ? issue?.reportedByUser.photoURL : "/default-profile-photo.jpg"} />
+                      <AvatarImage src={issue.createdByUser?.photoURL ? issue?.createdByUser.photoURL : "/default-profile-photo.jpg"} />
                       <AvatarFallback>FM</AvatarFallback>
                     </Avatar>
-                    <span>{`${issue.reportedByUser?.firstName} ${issue.reportedByUser?.lastName}`}</span>
+                    <span>{`${issue.createdByUser?.firstName} ${issue.createdByUser?.lastName}`}</span>
                   </Link>
                 ) : (
                   <div className={`${buttonVariants({ variant: "link" })} px-0 hover:no-underline space-x-3`}>
                     <Avatar>
-                      <AvatarImage src={issue.reportedByUser?.photoURL ? issue?.reportedByUser.photoURL : "/default-profile-photo.jpg"} />
+                      <AvatarImage src={issue.createdByUser?.photoURL ? issue?.createdByUser.photoURL : "/default-profile-photo.jpg"} />
                       <AvatarFallback>FM</AvatarFallback>
                     </Avatar>
-                    <span>{`${issue.reportedByUser?.firstName} ${issue.reportedByUser?.lastName}`}</span>
+                    <span>{`${issue.createdByUser?.firstName} ${issue.createdByUser?.lastName}`}</span>
                   </div>
                 )}
               </TableCell>
-              <TableCell>{format(issue.reportedAt.toDate(), "PP - HH:mm")}</TableCell>
+              <TableCell>{format(issue.createdAt.toDate(), "PP - HH:mm")}</TableCell>
               <TableCell>{issue.vehicle && <Link className={`${buttonVariants({ variant: "link" })} px-0`} href={`/dashboard/vehicles/${issue.vehicle?.uid}`}>{`${issue.vehicle?.make} ${issue.vehicle?.model}`}</Link>}</TableCell>
               <TableCell>
                 <span className="capitalize">{issue.type}</span>

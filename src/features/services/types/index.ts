@@ -27,6 +27,7 @@ export type Service = VehicleEvent & {
   date: Timestamp;
   parts: Part[];
   notes?: string;
+  managerUid: string;
 };
 
 export type Part = {

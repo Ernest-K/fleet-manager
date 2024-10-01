@@ -1,7 +1,5 @@
-// React
 import React from "react";
 
-// Libraries
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { format } from "date-fns";
@@ -9,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon, PlusIcon, X } from "lucide-react";
 import { Timestamp } from "firebase/firestore";
 
-// Components
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -23,14 +20,12 @@ import PlaceholderCard from "@/components/placeholder-card";
 import VehicleCard from "@/features/vehicles/components/vehicle-card";
 import LoadingButton from "@/components/loading-button";
 
-// Hooks
 import { useAuth } from "@/providers/auth-provider";
 import { useUser } from "@/providers/user-provider";
 import { useGetVehicles } from "@/features/vehicles/hooks/useGetVehicles";
 import { useCreateService } from "@/features/services/hooks/useCreateService";
 import { useUpdateService } from "../hooks/useUpdateService";
 
-// Types
 import { AuditFields } from "@/types";
 import { Service, ServiceFormData, ServiceStatus, ServiceType, Part, serviceFormSchema } from "@/features/services/types";
 import { Driver } from "@/features/drivers/types";

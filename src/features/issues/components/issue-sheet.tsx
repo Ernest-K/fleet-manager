@@ -1,11 +1,7 @@
-import { Driver } from "@/features/drivers/types";
-import { Vehicle } from "@/features/vehicles/types";
 import React, { ReactNode } from "react";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import DriverCard from "@/features/drivers/components/driver-card";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import VehicleCard from "@/features/vehicles/components/vehicle-card";
 import { Issue } from "../types";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import IssueCard from "./issue-card";
 
 type IssueSheetProps = {

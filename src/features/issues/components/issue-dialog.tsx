@@ -1,13 +1,14 @@
 import React, { ReactNode, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-
-import CreateIssueForm from "./create-issue-form";
+import { Issue } from "@/features/issues/types";
+import IssueForm from "@/features/issues/components/issue-form";
 
 type CreateIssueDialogProps = {
+  issue?: Issue;
   trigger: ReactNode;
 };
 
-function CreateIssueDialog({ trigger }: CreateIssueDialogProps) {
+function IssueDialog({ issue, trigger }: CreateIssueDialogProps) {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -18,10 +19,10 @@ function CreateIssueDialog({ trigger }: CreateIssueDialogProps) {
           <DialogTitle>Report an issue</DialogTitle>
           <DialogDescription>Use this form to report any issues with vehicle</DialogDescription>
         </DialogHeader>
-        <CreateIssueForm onSubmit={() => setOpen(false)} onCancel={() => setOpen(false)} />
+        <IssueForm issue={issue} onSubmit={() => setOpen(false)} onCancel={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   );
 }
 
-export default CreateIssueDialog;
+export default IssueDialog;
