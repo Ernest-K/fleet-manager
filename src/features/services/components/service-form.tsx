@@ -28,7 +28,6 @@ import { useUpdateService } from "../hooks/useUpdateService";
 
 import { AuditFields } from "@/types";
 import { Service, ServiceFormData, ServiceStatus, ServiceType, Part, serviceFormSchema } from "@/features/services/types";
-import { Driver } from "@/features/drivers/types";
 import { Role } from "@/features/auth/types";
 import { Vehicle } from "@/features/vehicles/types";
 
@@ -62,7 +61,7 @@ function ServiceForm({ service, vehicleUid, onSubmit: onFormSubmit, onCancel }: 
     name: "parts",
   });
 
-  const { mutate: createService, isPending: isCreating } = useCreateService({ userUid: authUser!.uid, managerUid: user!.role === Role.Manager ? authUser!.uid : (user as Driver).createdBy });
+  const { mutate: createService, isPending: isCreating } = useCreateService({ userUid: authUser!.uid, managerUid: user!.role === Role.Manager ? authUser!.uid : user!.managerUid! });
   const { mutate: updateService, isPending: isUpdating } = useUpdateService({ userUid: authUser!.uid });
 
   const onSubmit = (values: ServiceFormData) => {

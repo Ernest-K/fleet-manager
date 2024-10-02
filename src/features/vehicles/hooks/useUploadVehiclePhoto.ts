@@ -3,6 +3,7 @@ import { db, storage } from "@/../firebase";
 import { useState } from "react";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { Vehicle } from "@/features/vehicles/types";
+import { CollectionNames } from "@/types";
 
 type UploadVehiclePhotoOptions = {
   photos: FileList;
@@ -51,7 +52,7 @@ export const useUploadVehiclePhoto = ({ vehicleUid }: UseUploadPhotoOptions) => 
             try {
               const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
 
-              const vehicleDocRef = doc(db, "vehicles", vehicleUid);
+              const vehicleDocRef = doc(db, CollectionNames.Vehicles, vehicleUid);
               await updateDoc(vehicleDocRef, {
                 photosURL: arrayUnion(downloadUrl),
               });

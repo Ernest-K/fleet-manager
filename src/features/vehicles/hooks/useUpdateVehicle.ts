@@ -1,23 +1,17 @@
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "@/../firebase";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "@/lib/queryClient";
-import { vehicleFormSchema, Vehicle } from "@/features/vehicles/types";
-import { z } from "zod";
+import { VehicleFormData } from "@/features/vehicles/types";
+import { UpdateDocOptions, updateDocument } from "@/lib/helpers";
+import { CollectionNames } from "@/types";
 
 type UpdateVehicleOptions = {
-  vehicleUid: string;
-  data: Partial<z.infer<typeof vehicleFormSchema>>;
-};
-
-const updateVehicle = async ({ vehicleUid, data }: UpdateVehicleOptions) => {
-  const vehicleDocRef = doc(db, "vehicles", vehicleUid);
-  return await updateDoc(vehicleDocRef, data);
+  vehicleUid: UpdateDocOptions<VehicleFormData>["docUid"];
+  vehicleData: UpdateDocOptions<VehicleFormData>["data"];
 };
 
 export const useUpdateVehicle = () => {
   return useMutation({
-    mutationFn: updateVehicle,
+    mutationFn: ({ vehicleUid, vehicleData }: UpdateVehicleOptions) => updateDocument<VehicleFormData>({ collectionName: CollectionNames.Vehicles, docUid: vehicleUid, data: vehicleData }),
     onSuccess: (_, { vehicleUid }) => {
       queryClient.invalidateQueries({ queryKey: ["vehicle", vehicleUid] });
     },

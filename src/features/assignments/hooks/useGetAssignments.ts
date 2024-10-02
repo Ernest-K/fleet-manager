@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useGetDrivers } from "@/features/drivers/hooks/useGetDrivers";
-import { useGetVehicles } from "@/features/vehicles/hooks/useGetVehicles";
 import { db } from "@/../firebase";
 import { Assignment } from "@/features/assignments/types";
+import { CollectionNames } from "@/types";
+import { getDocumentsByUid } from "@/lib/helpers";
+import { User } from "@/features/auth/types";
+import { Vehicle } from "@/features/vehicles/types";
 
 type UseGetAssignmentsOptions = {
   managerUid: string;
@@ -12,51 +14,42 @@ type UseGetAssignmentsOptions = {
 };
 
 export const useGetAssignments = ({ managerUid, driverUid, vehicleUid }: UseGetAssignmentsOptions) => {
-  const { data: drivers, isLoading: isLoadingDrivers, isError: isErrorDrivers } = useGetDrivers({ managerUid });
-  const { data: vehicles, isLoading: isLoadingVehicles, isError: isErrorVehicles } = useGetVehicles({ managerUid });
-
   const queryResult = useQuery({
     queryFn: async () => {
-      const assignmentsRef = collection(db, "assignments");
+      const assignmentsRef = collection(db, CollectionNames.Assignments);
       let assignmentsQuery;
 
-      // Filter assignments based on driverUid or vehicleUid
       if (driverUid) {
         assignmentsQuery = query(assignmentsRef, where("driverUid", "==", driverUid));
       } else if (vehicleUid) {
         assignmentsQuery = query(assignmentsRef, where("vehicleUid", "==", vehicleUid));
       } else {
-        assignmentsQuery = query(assignmentsRef, where("createdBy", "==", managerUid));
+        assignmentsQuery = query(assignmentsRef, where("managerUid", "==", managerUid));
       }
 
       const querySnapshot = await getDocs(assignmentsQuery);
 
-      // Step 1: Fetch all assignments
-      const assignments = querySnapshot.docs.map((doc) => {
-        const assignmentData = doc.data();
+      const assignments = querySnapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() } as Assignment));
+      const usersUids = Array.from(new Set(assignments.map((assignment) => assignment.driverUid)));
+      const vehicleUids = Array.from(new Set(assignments.map((assignment) => assignment.vehicleUid)));
 
-        // Step 2: Find driver and vehicle from the existing fetched data
-        const driver = drivers?.find((driver) => driver.uid === assignmentData.driverUid);
-        const vehicle = vehicles?.find((vehicle) => vehicle.uid === assignmentData.vehicleUid);
+      const [users, vehicles] = await Promise.all([getDocumentsByUid<User>({ collectionName: CollectionNames.Users, uids: usersUids }), getDocumentsByUid<Vehicle>({ collectionName: CollectionNames.Vehicles, uids: vehicleUids })]);
 
-        // Step 3: Attach driver and vehicle to assignment
-        return {
-          uid: doc.id,
-          ...assignmentData,
-          driver: driver,
-          vehicle: vehicle,
-        } as Assignment;
-      });
+      const assignmentsWithDetails = assignments.map((assignment) => ({
+        ...assignment,
+        driver: users.find((user) => user.uid === assignment.driverUid),
+        vehicle: vehicles.find((vehicle) => vehicle.uid === assignment.vehicleUid),
+      }));
 
-      return assignments;
+      return assignmentsWithDetails;
     },
-    queryKey: ["assignments", managerUid, driverUid, vehicleUid],
-    enabled: !!managerUid && !isLoadingDrivers && !isLoadingVehicles && !isErrorDrivers && !isErrorVehicles, // TODO, Only fetch if drivers and vehicles are loaded and no errors
+    queryKey: [CollectionNames.Assignments, managerUid, driverUid, vehicleUid],
+    enabled: !!managerUid,
   });
 
   return {
     ...queryResult,
-    isLoading: queryResult.isLoading || isLoadingDrivers || isLoadingVehicles, // Combine loading states
-    isError: queryResult.isError || isErrorDrivers || isErrorVehicles, // Combine error states
+    isLoading: queryResult.isLoading,
+    isError: queryResult.isError,
   };
 };

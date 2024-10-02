@@ -1,31 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
-import { z } from "zod";
 import queryClient from "@/lib/queryClient";
-import { createAssignmentFormSchema } from "@/features/assignments/types";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/../firebase";
+import { CreateAssignmentFormData } from "@/features/assignments/types";
+import { CreateDocOptions, createDocument } from "@/lib/helpers";
+import { CollectionNames } from "@/types";
 
-type createAssignmentOptions = {
-  assignmentData: z.infer<typeof createAssignmentFormSchema>;
+type UseCreateAssignmentOptions = {
   managerUid: string;
 };
 
-async function createAssignment({ assignmentData, managerUid }: createAssignmentOptions) {
-  await addDoc(collection(db, "assignments"), {
-    ...assignmentData,
-    createdBy: managerUid,
-  });
-}
-
-type useCreateAssignmentOptions = {
-  managerUid: string;
-};
-
-export function useCreateAssignment({ managerUid }: useCreateAssignmentOptions) {
+export function useCreateAssignment({ managerUid }: UseCreateAssignmentOptions) {
   return useMutation({
-    mutationFn: (assignmentData: createAssignmentOptions["assignmentData"]) => createAssignment({ assignmentData, managerUid }),
+    mutationFn: (assignmentData: CreateDocOptions<CreateAssignmentFormData>["data"]) => createDocument<CreateAssignmentFormData>({ collectionName: CollectionNames.Assignments, data: assignmentData, managerUid }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["assignments", managerUid] });
+      queryClient.invalidateQueries({ queryKey: [CollectionNames.Assignments, managerUid] });
     },
   });
 }

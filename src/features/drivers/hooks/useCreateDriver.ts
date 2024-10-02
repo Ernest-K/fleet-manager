@@ -14,7 +14,7 @@ async function createDriver({ driverData, managerUid }: createDriverOptions) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ...driverData, createdBy: managerUid }),
+    body: JSON.stringify({ ...driverData, managerUid: managerUid }),
   });
 
   if (!response.ok) {

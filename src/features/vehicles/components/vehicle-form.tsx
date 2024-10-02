@@ -102,7 +102,7 @@ function VehicleForm({ vehicle }: VehicleFormProps) {
       updateVehicle(
         {
           vehicleUid: vehicle.uid,
-          data: finalVehicleValues,
+          vehicleData: finalVehicleValues,
         },
         {
           onSuccess: (data) => {

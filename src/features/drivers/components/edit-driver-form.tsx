@@ -9,12 +9,14 @@ import { toast } from "@/components/ui/use-toast";
 import { Driver, DriverStatus, editDriverFormSchema } from "@/features/drivers/types";
 import { useUpdateDriver } from "@/features/drivers/hooks/useUpdateDriver";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useRouter } from "next/router";
 
 type EditDriverFormProps = {
   driver: Driver;
 };
 
 function EditDriverForm({ driver }: EditDriverFormProps) {
+  const router = useRouter();
   const profileForm = useForm<z.infer<typeof editDriverFormSchema>>({
     resolver: zodResolver(editDriverFormSchema),
     defaultValues: driver
@@ -33,7 +35,7 @@ function EditDriverForm({ driver }: EditDriverFormProps) {
     updateDriver(
       {
         driverUid: driver.uid,
-        data: {
+        driverData: {
           firstName: values.firstName,
           lastName: values.lastName,
           phone: values.phone,
@@ -46,6 +48,7 @@ function EditDriverForm({ driver }: EditDriverFormProps) {
           toast({
             description: "Driver updated successfully!",
           });
+          router.back();
         },
       }
     );

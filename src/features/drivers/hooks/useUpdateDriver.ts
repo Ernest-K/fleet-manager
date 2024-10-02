@@ -1,24 +1,19 @@
-import { doc, updateDoc } from "firebase/firestore";
 import { Driver } from "@/features/drivers/types";
-import { db } from "@/../firebase";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "@/lib/queryClient";
+import { UpdateDocOptions, updateDocument } from "@/lib/helpers";
+import { CollectionNames } from "@/types";
 
 type UpdateDriverOptions = {
-  driverUid: string;
-  data: Partial<Driver>;
+  driverUid: UpdateDocOptions<Driver>["docUid"];
+  driverData: UpdateDocOptions<Driver>["data"];
 };
 
-const updateDriver = async ({ driverUid, data }: UpdateDriverOptions) => {
-  const driverDocRef = doc(db, "users", driverUid);
-  return await updateDoc(driverDocRef, data);
-};
-
-export const useUpdateDriver = () => {
+export function useUpdateDriver() {
   return useMutation({
-    mutationFn: updateDriver,
+    mutationFn: ({ driverUid, driverData }: UpdateDriverOptions) => updateDocument<Driver>({ collectionName: CollectionNames.Users, docUid: driverUid, data: driverData }),
     onSuccess: (_, { driverUid }) => {
       queryClient.invalidateQueries({ queryKey: ["driver", driverUid] });
     },
   });
-};
+}

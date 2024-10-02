@@ -23,7 +23,6 @@ import { useUser } from "@/providers/user-provider";
 
 import { Vehicle } from "@/features/vehicles/types";
 import { Role } from "@/features/auth/types";
-import { Driver } from "@/features/drivers/types";
 import { AuditFields } from "@/types";
 
 type IssueFormProps = {
@@ -52,7 +51,7 @@ function IssueForm({ issue, vehicleUid, onSubmit: onFormSubmit, onCancel }: Issu
   const { data: vehicles } = useGetVehicles({ managerUid: authUser!.uid });
   const selectedVehicle = vehicleUid ? vehicles?.find((vehicle) => vehicle.uid === vehicleUid) : vehicles?.find((vehicle) => vehicle.uid === watch("vehicleUid"));
 
-  const { mutate: createIssue, isPending: isCreating } = useCreateIssue({ userUid: authUser!.uid, managerUid: user!.role === Role.Manager ? authUser!.uid : (user as Driver).createdBy });
+  const { mutate: createIssue, isPending: isCreating } = useCreateIssue({ userUid: authUser!.uid, managerUid: user!.role === Role.Manager ? authUser!.uid : user!.managerUid! });
   const { mutate: updateIssue, isPending: isUpdating } = useUpdateIssue({ userUid: authUser!.uid });
 
   const onSubmit = (values: IssueFormData) => {

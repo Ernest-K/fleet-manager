@@ -1,25 +1,17 @@
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../../../firebase";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "@/lib/queryClient";
+import { DeleteDocOptions, deleteDocument } from "@/lib/helpers";
+import { CollectionNames } from "@/types";
 
-type deleteDriverOptions = {
-  driverUid: string;
+type UseDeleteDriverOptions = {
+  userUid: string;
 };
 
-const deleteDriver = async ({ driverUid }: deleteDriverOptions) => {
-  await deleteDoc(doc(db, "users", driverUid));
-};
-
-type useDeleteDriverOptions = {
-  managerUid: string;
-};
-
-export const useDeleteDriver = ({ managerUid }: useDeleteDriverOptions) => {
+export const useDeleteDriver = ({ userUid }: UseDeleteDriverOptions) => {
   return useMutation({
-    mutationFn: (driverUid: deleteDriverOptions["driverUid"]) => deleteDriver({ driverUid }),
+    mutationFn: (driverUid: DeleteDocOptions["docUid"]) => deleteDocument({ collectionName: CollectionNames.Users, docUid: driverUid }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["drivers", managerUid] });
+      queryClient.invalidateQueries({ queryKey: ["drivers", userUid] });
     },
   });
 };

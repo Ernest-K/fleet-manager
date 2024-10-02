@@ -1,9 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/../firebase";
-import { registerFormSchema } from "../types";
+import { registerFormSchema, Role } from "@/features/auth/types";
 import { z } from "zod";
 import { doc, setDoc } from "firebase/firestore";
+import { CollectionNames } from "@/types";
 
 export function useRegister() {
   return useMutation({
@@ -11,12 +12,12 @@ export function useRegister() {
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-        await setDoc(doc(db, "users", userCredential.user.uid), {
+        await setDoc(doc(db, CollectionNames.Users, userCredential.user.uid), {
           uid: userCredential.user.uid,
           firstName,
           lastName,
           email,
-          role: "manager",
+          role: Role.Manager,
         });
 
         return userCredential.user;

@@ -54,6 +54,8 @@ export const vehicleFormSchema = z
     }
   );
 
+export type VehicleFormData = z.infer<typeof vehicleFormSchema>;
+
 export type Vehicle = {
   uid: string;
   vehicleType: z.infer<typeof VehicleType>;
@@ -71,4 +73,5 @@ export type Vehicle = {
   status: z.infer<typeof VehicleStatus>;
   notes?: string;
   photosURL?: string[];
+  managerUid: string;
 };

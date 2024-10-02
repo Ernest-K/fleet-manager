@@ -1,25 +1,17 @@
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "@/../firebase";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "@/lib/queryClient";
+import { DeleteDocOptions, deleteDocument } from "@/lib/helpers";
+import { CollectionNames } from "@/types";
 
-type deleteVehicleOptions = {
-  vehicleUid: string;
-};
-
-const deleteVehicle = async ({ vehicleUid }: deleteVehicleOptions) => {
-  await deleteDoc(doc(db, "vehicles", vehicleUid));
-};
-
-type useDeleteVehicleOptions = {
+type UseDeleteVehicleOptions = {
   managerUid: string;
 };
 
-export const useDeleteVehicle = ({ managerUid }: useDeleteVehicleOptions) => {
+export const useDeleteVehicle = ({ managerUid }: UseDeleteVehicleOptions) => {
   return useMutation({
-    mutationFn: (vehicleUid: deleteVehicleOptions["vehicleUid"]) => deleteVehicle({ vehicleUid }),
+    mutationFn: (vehicleUid: DeleteDocOptions["docUid"]) => deleteDocument({ collectionName: CollectionNames.Vehicles, docUid: vehicleUid }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["vehicles", managerUid] });
+      queryClient.invalidateQueries({ queryKey: [CollectionNames.Vehicles, managerUid] });
     },
   });
 };

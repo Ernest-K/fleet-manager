@@ -27,5 +27,4 @@ export type Driver = User & {
   phone: string;
   licenseNumber?: string;
   status: z.infer<typeof DriverStatus>;
-  createdBy: string;
 };

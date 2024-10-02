@@ -20,6 +20,8 @@ export const createAssignmentFormSchema = z
     }
   );
 
+export type CreateAssignmentFormData = z.infer<typeof createAssignmentFormSchema>;
+
 export type Assignment = {
   uid: string;
   dateRange: { from: Timestamp; to: Timestamp };
@@ -27,5 +29,5 @@ export type Assignment = {
   vehicleUid: string;
   driver: Driver;
   vehicle: Vehicle;
-  createdBy: string;
+  managerUid: string;
 };

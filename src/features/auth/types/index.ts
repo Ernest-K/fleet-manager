@@ -24,4 +24,5 @@ export type User = {
   lastName: string;
   email: string;
   photoURL?: string;
+  managerUid?: string;
 };

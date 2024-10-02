@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end();
   }
 
-  const { firstName, lastName, phone, licenseNumber, email, password, createdBy } = req.body;
+  const { firstName, lastName, phone, licenseNumber, status, email, password, managerUid } = req.body;
 
   try {
     const userRecord = await admin.auth().createUser({
@@ -24,9 +24,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         lastName,
         phone: phone ?? "",
         licenseNumber: licenseNumber ?? "",
+        status,
         email,
         role: "driver",
-        createdBy,
+        managerUid,
       });
 
     res.status(200).json({ success: true });

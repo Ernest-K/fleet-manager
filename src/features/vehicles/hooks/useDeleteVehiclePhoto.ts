@@ -3,6 +3,7 @@ import { db, storage } from "@/../firebase";
 import { useMutation } from "@tanstack/react-query";
 import { deleteObject, ref } from "firebase/storage";
 import queryClient from "@/lib/queryClient";
+import { CollectionNames } from "@/types";
 
 type deletePhotoOptions = {
   photoURL: string;
@@ -14,7 +15,7 @@ const deletePhoto = async ({ photoURL, vehicleUid }: deletePhotoOptions) => {
     const photoRef = ref(storage, photoURL);
     await deleteObject(photoRef);
 
-    const vehicleDocRef = doc(db, "vehicles", vehicleUid);
+    const vehicleDocRef = doc(db, CollectionNames.Vehicles, vehicleUid);
     await updateDoc(vehicleDocRef, {
       photosURL: arrayRemove(photoURL),
     });
