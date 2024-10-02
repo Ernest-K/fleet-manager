@@ -1,7 +1,4 @@
-import { User } from "@/features/auth/types";
-import { Vehicle } from "@/features/vehicles/types";
 import { VehicleEvent } from "@/types";
-import { Timestamp } from "firebase/firestore";
 import { z } from "zod";
 
 export const Severity = z.enum(["low", "medium", "high"]);
@@ -18,15 +15,6 @@ export const issueFormSchema = z.object({
 });
 
 export type IssueFormData = z.infer<typeof issueFormSchema>;
-
-// export type Issue = z.infer<typeof createIssueFormSchema> & {
-//   uid: string;
-//   reportedBy: string;
-//   reportedByUser?: User;
-//   reportedAt: Timestamp;
-//   vehicle?: Vehicle;
-//   managerUid: string;
-// };
 
 export type Issue = VehicleEvent & {
   type: z.infer<typeof IssueType>;

@@ -50,7 +50,7 @@ function ServiceCard({ service }: ServiceCardProps) {
             )}
           </div>
         </div>
-        <DetailRow Icon={Notebook} label="Description" value={service.notes} />
+        <DetailRow Icon={Notebook} label="Notes" value={service.notes} />
       </div>
     </div>
   );

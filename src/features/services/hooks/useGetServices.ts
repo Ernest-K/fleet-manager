@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Service } from "../types";
+import { Service } from "@/features/services/types";
 import { getDocumentsByManagerUid, getDocumentsByUid } from "@/lib/helpers";
 import { CollectionNames } from "@/types";
 import { User } from "@/features/auth/types";
