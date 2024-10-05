@@ -81,7 +81,7 @@ function CreateDriverForm() {
               <FormItem>
                 <FormLabel>Phone </FormLabel>
                 <FormControl>
-                  <Input placeholder="+919367788755" {...field} />
+                  <Input placeholder="+12 123123123" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

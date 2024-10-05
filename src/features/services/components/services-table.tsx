@@ -62,25 +62,31 @@ function ServiceTable({ services }: ServiceTableProps) {
             <TableRow key={service.uid}>
               <TableCell className="flex items-center">
                 {service.createdByUser?.role === Role.Driver ? (
-                  <Link className={`${buttonVariants({ variant: "link" })} px-0 space-x-3`} href={`/dashboard/drivers/${service.createdByUser?.uid}`}>
+                  <Link className={`${buttonVariants({ variant: "link" })} pl-0 space-x-3`} href={`/dashboard/drivers/${service.createdByUser?.uid}`}>
                     <Avatar>
                       <AvatarImage src={service.createdByUser?.photoURL ? service?.createdByUser.photoURL : "/default-profile-photo.jpg"} />
                       <AvatarFallback>FM</AvatarFallback>
                     </Avatar>
-                    <span>{`${service.createdByUser?.firstName} ${service.createdByUser?.lastName}`}</span>
+                    <div>
+                      <span>{`${service.createdByUser?.firstName} ${service.createdByUser?.lastName}`}</span>
+                      <p className="text-muted-foreground text-xs">{service.createdByUser?.email}</p>
+                    </div>
                   </Link>
                 ) : (
-                  <div className={`${buttonVariants({ variant: "link" })} px-0 hover:no-underline space-x-3`}>
+                  <div className={`${buttonVariants({ variant: "link" })} pl-0 hover:no-underline space-x-3`}>
                     <Avatar>
                       <AvatarImage src={service.createdByUser?.photoURL ? service?.createdByUser.photoURL : "/default-profile-photo.jpg"} />
                       <AvatarFallback>FM</AvatarFallback>
                     </Avatar>
-                    <span>{`${service.createdByUser?.firstName} ${service.createdByUser?.lastName}`}</span>
+                    <div>
+                      <span>{`${service.createdByUser?.firstName} ${service.createdByUser?.lastName}`}</span>
+                      <p className="text-muted-foreground text-xs">{service.createdByUser?.email}</p>
+                    </div>
                   </div>
                 )}
               </TableCell>
               <TableCell>{format(service.date.toDate(), "PP")}</TableCell>
-              <TableCell>{service.vehicle && <Link className={`${buttonVariants({ variant: "link" })} px-0`} href={`/dashboard/vehicles/${service.vehicle?.uid}`}>{`${service.vehicle?.make} ${service.vehicle?.model}`}</Link>}</TableCell>
+              <TableCell>{service.vehicle && <Link className={`${buttonVariants({ variant: "link" })} pl-0`} href={`/dashboard/vehicles/${service.vehicle?.uid}`}>{`${service.vehicle?.make} ${service.vehicle?.model}`}</Link>}</TableCell>
               <TableCell>{service.type}</TableCell>
               <TableCell>
                 <Badge>{service.status}</Badge>

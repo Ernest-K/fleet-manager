@@ -2,7 +2,7 @@ import { User } from "@/features/auth/types";
 import { phoneRegex } from "@/lib/utils";
 import { z } from "zod";
 
-export const DriverStatus = z.enum(["active", "inactive"]);
+export const DriverStatus = z.enum(["active", "on trip", "inactive"]);
 
 export const createDriverFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),

@@ -62,25 +62,31 @@ function IssueTable({ issues }: IssueTableProps) {
             <TableRow key={issue.uid}>
               <TableCell className="flex items-center">
                 {issue.createdByUser?.role === Role.Driver ? (
-                  <Link className={`${buttonVariants({ variant: "link" })} px-0 space-x-3`} href={`/dashboard/drivers/${issue.createdByUser?.uid}`}>
+                  <Link className={`${buttonVariants({ variant: "link" })} pl-0 space-x-3`} href={`/dashboard/drivers/${issue.createdByUser?.uid}`}>
                     <Avatar>
                       <AvatarImage src={issue.createdByUser?.photoURL ? issue?.createdByUser.photoURL : "/default-profile-photo.jpg"} />
                       <AvatarFallback>FM</AvatarFallback>
                     </Avatar>
-                    <span>{`${issue.createdByUser?.firstName} ${issue.createdByUser?.lastName}`}</span>
+                    <div>
+                      <span>{`${issue.createdByUser?.firstName} ${issue.createdByUser?.lastName}`}</span>
+                      <p className="text-muted-foreground text-xs">{issue.createdByUser?.email}</p>
+                    </div>
                   </Link>
                 ) : (
-                  <div className={`${buttonVariants({ variant: "link" })} px-0 hover:no-underline space-x-3`}>
+                  <div className={`${buttonVariants({ variant: "link" })} pl-0 hover:no-underline space-x-3`}>
                     <Avatar>
                       <AvatarImage src={issue.createdByUser?.photoURL ? issue?.createdByUser.photoURL : "/default-profile-photo.jpg"} />
                       <AvatarFallback>FM</AvatarFallback>
                     </Avatar>
-                    <span>{`${issue.createdByUser?.firstName} ${issue.createdByUser?.lastName}`}</span>
+                    <div>
+                      <span>{`${issue.createdByUser?.firstName} ${issue.createdByUser?.lastName}`}</span>
+                      <p className="text-muted-foreground text-xs">{issue.createdByUser?.email}</p>
+                    </div>
                   </div>
                 )}
               </TableCell>
               <TableCell>{format(issue.createdAt.toDate(), "PP - HH:mm")}</TableCell>
-              <TableCell>{issue.vehicle && <Link className={`${buttonVariants({ variant: "link" })} px-0`} href={`/dashboard/vehicles/${issue.vehicle?.uid}`}>{`${issue.vehicle?.make} ${issue.vehicle?.model}`}</Link>}</TableCell>
+              <TableCell>{issue.vehicle && <Link className={`${buttonVariants({ variant: "link" })} pl-0`} href={`/dashboard/vehicles/${issue.vehicle?.uid}`}>{`${issue.vehicle?.make} ${issue.vehicle?.model}`}</Link>}</TableCell>
               <TableCell>
                 <span className="capitalize">{issue.type}</span>
               </TableCell>

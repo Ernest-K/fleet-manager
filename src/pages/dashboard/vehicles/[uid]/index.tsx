@@ -16,6 +16,10 @@ import { useGetVehicle } from "@/features/vehicles/hooks/useGetVehicle";
 import queryClient from "@/lib/queryClient";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import EntityAssignmentTable from "@/features/assignments/components/entity-assignment-table";
+import VehicleEventTabs from "@/components/vehicle-event-tabs";
+import { useGetIssuesByVehicleUid } from "@/features/issues/hooks/useGetIssues";
+import { useGetServicesByVehicleUid } from "@/features/services/hooks/useGetServices";
+import { useGetInspectionsByVehicleUid } from "@/features/inspections/hooks/useGetInspections";
 
 const VehicleDetailPage = () => {
   const router = useRouter();
@@ -24,6 +28,10 @@ const VehicleDetailPage = () => {
   const { mutate: deleteVehicle, isPending } = useDeleteVehicle({ managerUid: authUser!.uid });
   const validVehicleUid = !vehicleUid || Array.isArray(vehicleUid) ? "" : vehicleUid;
   const { data: vehicle, isLoading } = useGetVehicle({ vehicleUid: validVehicleUid });
+
+  const { data: inspections, isLoading: isInspectionsLoading } = useGetInspectionsByVehicleUid(validVehicleUid);
+  const { data: services, isLoading: isServicesLoading } = useGetServicesByVehicleUid(validVehicleUid);
+  const { data: issues, isLoading: isIssuesLoading } = useGetIssuesByVehicleUid(validVehicleUid);
 
   const handleDeleteVehicle = () => {
     deleteVehicle(validVehicleUid, {
@@ -96,6 +104,7 @@ const VehicleDetailPage = () => {
             <EntityAssignmentTable entityType="vehicle" entityUid={validVehicleUid} />
           </CardContent>
         </Card>
+        <VehicleEventTabs vehicleUid={validVehicleUid} inspections={inspections} services={services} issues={issues} />
       </section>
     </>
   );

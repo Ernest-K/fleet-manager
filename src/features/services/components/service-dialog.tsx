@@ -4,11 +4,12 @@ import ServiceForm from "@/features/services/components/service-form";
 import { Service } from "@/features/services/types";
 
 type ServiceDialogProps = {
+  vehicleUid?: string;
   service?: Service;
   trigger: ReactNode;
 };
 
-function ServiceDialog({ service, trigger }: ServiceDialogProps) {
+function ServiceDialog({ vehicleUid, service, trigger }: ServiceDialogProps) {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -19,7 +20,7 @@ function ServiceDialog({ service, trigger }: ServiceDialogProps) {
           <DialogTitle>Schedule a service</DialogTitle>
           <DialogDescription>Use this form to schedule a service</DialogDescription>
         </DialogHeader>
-        <ServiceForm service={service} onSubmit={() => setOpen(false)} onCancel={() => setOpen(false)} />
+        <ServiceForm vehicleUid={vehicleUid} service={service} onSubmit={() => setOpen(false)} onCancel={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   );

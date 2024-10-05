@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -42,4 +43,16 @@ export const colorMap: { [key: string]: string } = {
   champagne: "#F7E7CE",
   cream: "#FFFDD0",
   other: "#CCCCCC",
+};
+
+export const createChartConfig = (enumType: z.ZodEnum<[string, ...string[]]>) => {
+  return Object.fromEntries(
+    enumType.options.map((type, index) => [
+      type,
+      {
+        label: type.charAt(0).toUpperCase() + type.slice(1),
+        color: `hsl(var(--chart-${index + 1}))`,
+      },
+    ])
+  );
 };

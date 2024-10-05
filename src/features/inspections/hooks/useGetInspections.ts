@@ -1,9 +1,37 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDocumentsByManagerUid, getDocumentsByUid } from "@/lib/helpers";
+import { getDocumentsByManagerUid, getDocumentsByUid, getDocumentsByVehicleUid } from "@/lib/helpers";
 import { CollectionNames } from "@/types";
 import { User } from "@/features/auth/types";
 import { Vehicle } from "@/features/vehicles/types";
 import { Inspection } from "@/features/inspections/types";
+
+export const useGetInspectionsByVehicleUid = (vehicleUid: string) => {
+  const queryResult = useQuery({
+    queryFn: async () => {
+      const inspections = await getDocumentsByVehicleUid<Inspection>({ collectionName: CollectionNames.Inspections, vehicleUid });
+
+      const usersUids = Array.from(new Set(inspections.map((inspection) => inspection.createdBy)));
+      const users = await getDocumentsByUid<User>({ collectionName: CollectionNames.Users, uids: usersUids });
+      const [vehicle] = await getDocumentsByUid<Vehicle>({ collectionName: CollectionNames.Vehicles, uids: [vehicleUid] });
+
+      const inspectionsWithDetails = inspections.map((inspection) => ({
+        ...inspection,
+        createdByUser: users.find((user) => user.uid === inspection.createdBy),
+        vehicle: vehicle,
+      }));
+
+      return inspectionsWithDetails;
+    },
+    queryKey: [CollectionNames.Inspections, vehicleUid],
+    enabled: !!vehicleUid,
+  });
+
+  return {
+    ...queryResult,
+    isLoading: queryResult.isLoading,
+    isError: queryResult.isError,
+  };
+};
 
 export const useGetInspectionsByManagerUid = (managerUid: string) => {
   const queryResult = useQuery({

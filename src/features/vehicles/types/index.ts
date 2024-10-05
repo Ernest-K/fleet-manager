@@ -5,7 +5,7 @@ import { z } from "zod";
 export const VehicleType = z.enum(["car", "truck", "van", "motorcycle", "bus", "other"]);
 export const FuelType = z.enum(["gasoline", "diesel", "electric", "hybrid", "other"]);
 export const TransmissionType = z.enum(["manual", "automatic", "other"]);
-export const VehicleStatus = z.enum(["active", "inactive"]);
+export const VehicleStatus = z.enum(["active", "on trip", "on inspection", "in service", "needs repair", "inactive"]);
 export const Colors = z.enum(Object.keys(colorMap) as [string, ...string[]]);
 
 export const vehicleFormSchema = z
