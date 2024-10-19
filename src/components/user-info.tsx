@@ -6,6 +6,7 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@/providers/user-provider";
 import { useAuth } from "@/providers/auth-provider";
+import { useRouter } from "next/router";
 
 function UserInfo() {
   const { logout } = useAuth();
@@ -14,6 +15,7 @@ function UserInfo() {
   const handleLogout = () => {
     logout();
   };
+
   return (
     <div className="flex gap-3 justify-center items-center">
       <p>{`${user?.firstName} ${user?.lastName}`}</p>

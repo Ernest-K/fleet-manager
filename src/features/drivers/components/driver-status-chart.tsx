@@ -54,7 +54,7 @@ export default function DriverStatusChart({ drivers }: DriverStatusChartProps) {
         <CardDescription>Driver status overview</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        {!drivers ? (
+        {!drivers.length ? (
           <NoData title="No data found" icon={<Skeleton className="h-20 w-20" />} />
         ) : (
           <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
