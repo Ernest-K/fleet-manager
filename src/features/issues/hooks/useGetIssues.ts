@@ -33,6 +33,7 @@ export const useGetIssuesByVehicleUid = (vehicleUid: string) => {
   };
 };
 
+//TODO - dodać userUid jako parametr aby odświeżać
 export const useGetIssuesByManagerUid = (managerUid: string) => {
   const queryResult = useQuery({
     queryFn: async () => {
@@ -41,7 +42,10 @@ export const useGetIssuesByManagerUid = (managerUid: string) => {
       const usersUids = Array.from(new Set(issues.map((issue) => issue.createdBy)));
       const vehicleUids = Array.from(new Set(issues.map((issue) => issue.vehicleUid)));
 
-      const [users, vehicles] = await Promise.all([getDocumentsByUid<User>({ collectionName: CollectionNames.Users, uids: usersUids }), getDocumentsByUid<Vehicle>({ collectionName: CollectionNames.Vehicles, uids: vehicleUids })]);
+      const [users, vehicles] = await Promise.all([
+        getDocumentsByUid<User>({ collectionName: CollectionNames.Users, uids: usersUids }),
+        getDocumentsByUid<Vehicle>({ collectionName: CollectionNames.Vehicles, uids: vehicleUids }),
+      ]);
 
       const issuesWithDetails = issues.map((issue) => ({
         ...issue,

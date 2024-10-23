@@ -11,7 +11,8 @@ type UseCreateIssueOptions = {
 
 export function useCreateIssue({ userUid, managerUid }: UseCreateIssueOptions) {
   return useMutation({
-    mutationFn: (issueData: CreateDocOptions<IssueFormData>["data"]) => createDocument<IssueFormData>({ collectionName: CollectionNames.Issues, data: issueData, managerUid }),
+    mutationFn: (issueData: CreateDocOptions<IssueFormData>["data"]) =>
+      createDocument<IssueFormData>({ collectionName: CollectionNames.Issues, data: issueData, managerUid }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [CollectionNames.Issues, userUid] });
     },

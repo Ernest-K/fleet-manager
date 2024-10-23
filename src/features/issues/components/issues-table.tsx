@@ -86,7 +86,14 @@ function IssueTable({ issues }: IssueTableProps) {
                 )}
               </TableCell>
               <TableCell>{format(issue.createdAt.toDate(), "PP - HH:mm")}</TableCell>
-              <TableCell>{issue.vehicle && <Link className={`${buttonVariants({ variant: "link" })} pl-0`} href={`/dashboard/vehicles/${issue.vehicle?.uid}`}>{`${issue.vehicle?.make} ${issue.vehicle?.model}`}</Link>}</TableCell>
+              <TableCell>
+                {issue.vehicle && (
+                  <Link
+                    className={`${buttonVariants({ variant: "link" })} pl-0`}
+                    href={`/dashboard/vehicles/${issue.vehicle?.uid}`}
+                  >{`${issue.vehicle?.make} ${issue.vehicle?.model}`}</Link>
+                )}
+              </TableCell>
               <TableCell>
                 <span className="capitalize">{issue.type}</span>
               </TableCell>

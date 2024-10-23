@@ -22,8 +22,14 @@ function DriverDetail({ driverUid }: DriverDetailProps) {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row justify-evenly gap-3 lg:gap-16 border-[1px] border-border p-6 rounded-lg flex-wrap">
-      <Image src={data.photoURL ? data.photoURL : "/default-profile-photo.jpg"} alt="Profile Photo" width={200} height={200} className="rounded-full aspect-square object-cover ml-8 sm:ml-0 sm:self-center" />
+    <div className="flex flex-col lg:flex-row justify-evenly gap-3 lg:gap-16 border-[1px] border-border p-6 rounded-lg flex-wrap overflow-hidden text-ellipsis">
+      <Image
+        src={data.photoURL ? data.photoURL : "/default-profile-photo.jpg"}
+        alt="Profile Photo"
+        width={200}
+        height={200}
+        className="rounded-full aspect-square object-cover ml-8 sm:ml-0 sm:self-center"
+      />
       <div className="flex flex-col justify-evenly gap-3">
         <DetailRow Icon={ChevronsLeftRightEllipsis} label="UID" value={driverUid as string} />
         <div className="flex gap-6 items-center">

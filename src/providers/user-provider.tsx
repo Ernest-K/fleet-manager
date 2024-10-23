@@ -6,29 +6,38 @@ import { useAuth } from "../providers/auth-provider";
 import { Role, User } from "@/features/auth/types";
 import { Driver } from "@/features/drivers/types";
 import { CollectionNames } from "@/types";
+import { any } from "zod";
 
 interface UserContextProps {
   user: User | null;
   setUser: (u: User) => void;
   refreshUser: () => Promise<void>;
+  getUser: (userUid: string) => Promise<User | null>;
 }
 
-const UserContext = createContext<UserContextProps>({ user: null, setUser: (u: User) => {}, refreshUser: async () => {} });
+const UserContext = createContext<UserContextProps>({
+  user: null,
+  setUser: (u: User) => {},
+  refreshUser: async () => {},
+  getUser: async () => null,
+});
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const { authUser } = useAuth();
-  const [isLoading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
   const fetchUser = async () => {
     if (authUser) {
-      console.log("Auth User", authUser);
       const userDoc = await getDoc(doc(db, CollectionNames.Users, authUser.uid));
       setUser(userDoc.exists() ? (userDoc.data() as User) : null);
-      console.log("User Data", userDoc.data());
     } else {
       setUser(null);
     }
+  };
+
+  const getUser = async (userUid: string) => {
+    const userDoc = await getDoc(doc(db, CollectionNames.Users, userUid));
+    return userDoc.exists() ? (userDoc.data() as User) : null;
   };
 
   useEffect(() => {
@@ -64,7 +73,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   //   fetchUser().finally(() => setLoading(false)); // Stop loading after the user is fetched
   // }, [authUser]);
 
-  return <UserContext.Provider value={{ user, setUser, refreshUser: fetchUser }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, setUser, refreshUser: fetchUser, getUser }}>{children}</UserContext.Provider>;
 }
 
 export const useUser = () => useContext(UserContext);

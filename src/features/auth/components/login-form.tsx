@@ -6,15 +6,17 @@ import { Icons } from "@/components/ui/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { loginFormSchema } from "@/features/auth/types";
+import { loginFormSchema, Role } from "@/features/auth/types";
 import useLogin from "@/features/auth/hooks/useLogin";
 import { useRouter } from "next/router";
 import { toast } from "@/components/ui/use-toast";
 import LoadingButton from "@/components/loading-button";
+import { useUser } from "@/providers/user-provider";
 
 function LoginForm() {
   const router = useRouter();
   const { mutate: login, isPending } = useLogin();
+  const { user, getUser } = useUser();
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -25,11 +27,18 @@ function LoginForm() {
 
   function onSubmit(values: z.infer<typeof loginFormSchema>) {
     login(values, {
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
+        const userData = await getUser(data.uid);
+
         toast({
           description: "You are successfully logged in",
         });
-        router.push("/dashboard");
+
+        if (userData?.role == Role.Manager) {
+          router.push("/dashboard");
+        } else if (userData?.role == Role.Driver) {
+          router.push("/driver");
+        }
       },
     });
   }

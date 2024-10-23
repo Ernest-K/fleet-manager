@@ -23,7 +23,8 @@ import { useUser } from "@/providers/user-provider";
 
 import { Vehicle } from "@/features/vehicles/types";
 import { Role } from "@/features/auth/types";
-import { AuditFields } from "@/types";
+import { AuditFields, CollectionNames } from "@/types";
+import queryClient from "@/lib/queryClient";
 
 type IssueFormProps = {
   issue?: Issue;
@@ -36,7 +37,9 @@ function IssueForm({ issue, vehicleUid, onSubmit: onFormSubmit, onCancel }: Issu
   const { authUser } = useAuth();
   const { user } = useUser();
 
-  const issueValues = issue ? { vehicleUid: issue.vehicleUid, type: issue.type, severity: issue.severity, status: issue.status, description: issue.description } : undefined;
+  const issueValues = issue
+    ? { vehicleUid: issue.vehicleUid, type: issue.type, severity: issue.severity, status: issue.status, description: issue.description }
+    : undefined;
 
   const form = useForm<IssueFormData>({
     resolver: zodResolver(issueFormSchema),
@@ -48,10 +51,15 @@ function IssueForm({ issue, vehicleUid, onSubmit: onFormSubmit, onCancel }: Issu
         },
   });
   const { watch } = form;
-  const { data: vehicles } = useGetVehicles({ managerUid: authUser!.uid });
-  const selectedVehicle = vehicleUid ? vehicles?.find((vehicle) => vehicle.uid === vehicleUid) : vehicles?.find((vehicle) => vehicle.uid === watch("vehicleUid"));
+  const { data: vehicles } = useGetVehicles({ managerUid: user?.managerUid! });
+  const selectedVehicle = vehicleUid
+    ? vehicles?.find((vehicle) => vehicle.uid === vehicleUid)
+    : vehicles?.find((vehicle) => vehicle.uid === watch("vehicleUid"));
 
-  const { mutate: createIssue, isPending: isCreating } = useCreateIssue({ userUid: authUser!.uid, managerUid: user!.role === Role.Manager ? authUser!.uid : user!.managerUid! });
+  const { mutate: createIssue, isPending: isCreating } = useCreateIssue({
+    userUid: authUser!.uid,
+    managerUid: user!.role === Role.Manager ? authUser!.uid : user!.managerUid!,
+  });
   const { mutate: updateIssue, isPending: isUpdating } = useUpdateIssue({ userUid: authUser!.uid });
 
   const onSubmit = (values: IssueFormData) => {
@@ -151,7 +159,13 @@ function IssueForm({ issue, vehicleUid, onSubmit: onFormSubmit, onCancel }: Issu
               Cancel
             </Button>
           )}
-          <LoadingButton type="submit" isLoading={issue ? isUpdating : isCreating} label={issue ? "Update" : "Create"} className="ml-auto" loadingLabel={issue ? "Updating" : "Creating"} />
+          <LoadingButton
+            type="submit"
+            isLoading={issue ? isUpdating : isCreating}
+            label={issue ? "Update" : "Create"}
+            className="ml-auto"
+            loadingLabel={issue ? "Updating" : "Creating"}
+          />
         </div>
       </form>
     </Form>

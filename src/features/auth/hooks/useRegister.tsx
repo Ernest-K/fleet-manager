@@ -18,6 +18,7 @@ export function useRegister() {
           lastName,
           email,
           role: Role.Manager,
+          managerUid: userCredential.user.uid,
         });
 
         return userCredential.user;

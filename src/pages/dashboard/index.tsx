@@ -43,15 +43,59 @@ const DashboardPage = () => {
       <DashboardContentHeader title="Dashboard" />
       <section className="pb-6 space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-6 gap-6">
-          {isDriversLoading ? <SkeletonTotalCountCard /> : drivers && <TotalCountCard title="Total number of drivers" count={drivers?.length} Icon={UsersRound} />}
+          {isDriversLoading ? (
+            <SkeletonTotalCountCard />
+          ) : (
+            drivers && <TotalCountCard title="Total number of drivers" count={drivers?.length} Icon={UsersRound} />
+          )}
           {isVehiclesLoading ? <SkeletonTotalCountCard /> : vehicles && <TotalCountCard title="Total number of vehicles" count={vehicles?.length} Icon={Car} />}
-          {isAssignmentsLoading ? <SkeletonTotalCountCard /> : assignments && <TotalCountCard title="Total number of assignments" count={assignments?.length} Icon={UserRoundPen} />}
+          {isAssignmentsLoading ? (
+            <SkeletonTotalCountCard />
+          ) : (
+            assignments && <TotalCountCard title="Total number of assignments" count={assignments?.length} Icon={UserRoundPen} />
+          )}
 
           {isDriversLoading ? <SkeletonChart className="sm:col-span-3" /> : <DriverStatusChart drivers={drivers || []} />}
           {isVehiclesLoading ? <SkeletonChart className="sm:col-span-3" /> : <VehicleStatusChart vehicles={vehicles || []} />}
-          {isInspectionsLoading ? <SkeletonChart className="sm:col-span-2" /> : <TypeChart title="Inspection Type" description="Overview of Inspection Types" data={inspections || []} typeKey="type" config={inspectionTypeChartConfig} labelTotal="Inspections" unit="inspections" />}
-          {isServicesLoading ? <SkeletonChart className="sm:col-span-2" /> : <TypeChart title="Service Type" description="Overview of Service Types" data={services || []} typeKey="type" config={serviceTypeChartConfig} labelTotal="Services" unit="services" />}
-          {isIssuesLoading ? <SkeletonChart className="sm:col-span-2" /> : <TypeChart title="Issue Type" description="Overview of Issue Types" data={issues || []} typeKey="type" config={issueTypeChartConfig} labelTotal="Issues" unit="issues" />}
+          {isInspectionsLoading ? (
+            <SkeletonChart className="sm:col-span-2" />
+          ) : (
+            <TypeChart
+              title="Inspection Type"
+              description="Overview of Inspection Types"
+              data={inspections || []}
+              typeKey="type"
+              config={inspectionTypeChartConfig}
+              labelTotal="Inspections"
+              unit="inspections"
+            />
+          )}
+          {isServicesLoading ? (
+            <SkeletonChart className="sm:col-span-2" />
+          ) : (
+            <TypeChart
+              title="Service Type"
+              description="Overview of Service Types"
+              data={services || []}
+              typeKey="type"
+              config={serviceTypeChartConfig}
+              labelTotal="Services"
+              unit="services"
+            />
+          )}
+          {isIssuesLoading ? (
+            <SkeletonChart className="sm:col-span-2" />
+          ) : (
+            <TypeChart
+              title="Issue Type"
+              description="Overview of Issue Types"
+              data={issues || []}
+              typeKey="type"
+              config={issueTypeChartConfig}
+              labelTotal="Issues"
+              unit="issues"
+            />
+          )}
         </div>
         <VehicleEventTabs inspections={inspections} services={services} issues={issues} />
       </section>
