@@ -8,9 +8,15 @@ import { registerFormSchema } from "@/features/auth/types";
 import useRegister from "@/features/auth/hooks/useRegister";
 import { useToast } from "@/components/ui/use-toast";
 import LoadingButton from "@/components/loading-button";
+import useLogin from "../hooks/useLogin";
+import { useRouter } from "next/router";
+import { Icons } from "@/components/ui/icons";
 
 function RegisterForm() {
   const { mutate: register, isPending } = useRegister();
+  const { mutate: login, isPending: isLogging } = useLogin();
+  const router = useRouter();
+
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -26,6 +32,14 @@ function RegisterForm() {
   function onSubmit(values: z.infer<typeof registerFormSchema>) {
     register(values, {
       onSuccess: (user) => {
+        login(
+          { email: values.email, password: values.password },
+          {
+            onSuccess: () => {
+              router.push("/dashboard");
+            },
+          }
+        );
         toast({
           title: "Your registration has been successful.",
           description: "You can log in",
@@ -33,6 +47,15 @@ function RegisterForm() {
       },
     });
     form.reset();
+  }
+
+  if (isLogging) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Icons.spinner className="mr-2 animate-spin" />
+        Loading
+      </div>
+    );
   }
 
   return (
