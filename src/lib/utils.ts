@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { Timestamp } from "firebase/firestore";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
@@ -55,4 +56,12 @@ export const createChartConfig = (enumType: z.ZodEnum<[string, ...string[]]>) =>
       },
     ])
   );
+};
+
+export const isDateBetweenRange = (date: Timestamp, range: { from: Timestamp; to: Timestamp }): boolean => {
+  const dateToCheck = date.toDate();
+  const fromDate = range.from.toDate();
+  const toDate = range.to.toDate();
+
+  return dateToCheck >= fromDate && dateToCheck <= toDate;
 };

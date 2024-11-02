@@ -25,4 +25,5 @@ export type User = {
   email: string;
   photoURL?: string;
   managerUid?: string;
+  currentVehicleUid?: string;
 };
