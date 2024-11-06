@@ -1,11 +1,20 @@
+import { Vehicle } from "@/features/vehicles/types";
 import { type ClassValue, clsx } from "clsx";
-import { Timestamp } from "firebase/firestore";
+import { collection, getDocs, query, Timestamp, where } from "firebase/firestore";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
+import { db } from "../../firebase";
+import { CollectionNames } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const REMINDER_INTERVALS = [
+  { days: 30, range: 1 },
+  { days: 7, range: 1 },
+  { days: 1, range: 1 },
+];
 
 export const phoneRegex = new RegExp(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/);
 
@@ -64,4 +73,23 @@ export const isDateBetweenRange = (date: Timestamp, range: { from: Timestamp; to
   const toDate = range.to.toDate();
 
   return dateToCheck >= fromDate && dateToCheck <= toDate;
+};
+
+export const fetchUpcomingVehicles = async (
+  field: keyof Pick<Vehicle, "technicalInspectionDate" | "insurancePolicyDate">,
+  days: number,
+  range: number = 1
+): Promise<Vehicle[]> => {
+  const today = new Date();
+  const startDate = new Date(today.getTime() + (days - range) * 24 * 60 * 60 * 1000);
+  const endDate = new Date(today.getTime() + (days + range) * 24 * 60 * 60 * 1000);
+
+  const startTimestamp = Timestamp.fromDate(startDate);
+  const endTimestamp = Timestamp.fromDate(endDate);
+
+  const vehicleRef = collection(db, CollectionNames.Vehicles);
+  const upcomingQuery = query(vehicleRef, where(field, ">=", startTimestamp), where(field, "<=", endTimestamp));
+
+  const snapshot = await getDocs(upcomingQuery);
+  return snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() } as Vehicle));
 };

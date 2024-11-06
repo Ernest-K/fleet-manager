@@ -3,23 +3,23 @@ import * as React from "react";
 import { Vehicle } from "../types";
 import { format } from "date-fns";
 
-interface TechnicalInspectionEmailTemplateProps {
+interface InsurancePolicyEmailTemplateProps {
   vehicle: Vehicle;
 }
 
-const TechnicalInspectionEmailTemplate: React.FC<TechnicalInspectionEmailTemplateProps> = ({ vehicle }) => {
-  const formettedDate = format(vehicle.technicalInspectionDate.toDate(), "PP");
+const InsurancePolicyEmailTemplate: React.FC<InsurancePolicyEmailTemplateProps> = ({ vehicle }) => {
+  const formattedDate = format(vehicle.insurancePolicyDate.toDate(), "PP");
 
   return (
     <Html>
       <Head />
-      <Preview>Vehicle Technical Inspection Reminder</Preview>
+      <Preview>Vehicle Insurance Policy Expiration Reminder</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Heading style={h1}>Vehicle Technical Inspection Reminder</Heading>
+          <Heading style={h1}>Vehicle Insurance Policy Expiration Reminder</Heading>
 
           <Text style={text}>
-            This is a friendly reminder that your vehicle is due for its technical inspection. Please find the details of your vehicle below:
+            This is a friendly reminder that your vehicle&apos;s insurance policy is due to expire soon. Please find the details of your vehicle below:
           </Text>
 
           <Section style={vehicleDetails}>
@@ -56,10 +56,10 @@ const TechnicalInspectionEmailTemplate: React.FC<TechnicalInspectionEmailTemplat
           </Section>
 
           <Text style={text}>
-            Your vehicle&apos;s technical inspection is scheduled for: <strong style={highlight}>{formettedDate}</strong>
+            Your vehicle&apos;s insurance policy is set to expire on: <strong style={highlight}>{formattedDate}</strong>
           </Text>
 
-          <Text style={text}>Thank you for your attention to this matter.</Text>
+          <Text style={text}>Please ensure that you renew it in time to maintain continuous coverage.</Text>
 
           <Hr style={hr} />
 
@@ -70,7 +70,7 @@ const TechnicalInspectionEmailTemplate: React.FC<TechnicalInspectionEmailTemplat
   );
 };
 
-export default TechnicalInspectionEmailTemplate;
+export default InsurancePolicyEmailTemplate;
 
 const main = {
   backgroundColor: "#f6f9fc",
