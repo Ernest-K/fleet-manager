@@ -18,7 +18,7 @@ const DriverDetailPage = () => {
   const router = useRouter();
   const { uid: driverUid } = router.query;
   const { authUser } = useAuth();
-  const { mutate: deleteDriver, isPending } = useDeleteDriver({ managerUid: authUser!.uid });
+  const { mutate: deleteDriver, isPending } = useDeleteDriver({ userUid: authUser!.uid });
   const validDriverUid = !driverUid || Array.isArray(driverUid) ? "" : driverUid;
 
   const handleDeleteDriver = () => {
