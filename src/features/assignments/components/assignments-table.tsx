@@ -11,6 +11,7 @@ import { useDeleteAssignment } from "@/features/assignments/hooks/useDeleteAssig
 import { Icons } from "@/components/ui/icons";
 import AssignmentSheet from "@/features/assignments/components/assignment-sheet";
 import NoData from "@/components/no-data";
+import { Driver } from "@/features/drivers/types";
 
 function AssignmentTable() {
   const { authUser } = useAuth();
@@ -57,7 +58,7 @@ function AssignmentTable() {
             <TableRow key={assignment.uid}>
               <TableCell>
                 <Avatar>
-                  <AvatarImage src={assignment.driver.photoURL ? assignment.driver.photoURL : "/default-profile-photo.jpg"} />
+                  <AvatarImage src={assignment.driver?.photoURL ? assignment.driver.photoURL : "/default-profile-photo.jpg"} />
                   <AvatarFallback>FM</AvatarFallback>
                 </Avatar>
               </TableCell>
@@ -75,7 +76,7 @@ function AssignmentTable() {
                       <Eye className="h-5 w-5" />
                     </Button>
                   }
-                  driver={assignment.driver}
+                  driver={assignment.driver as Driver | undefined}
                   vehicle={assignment.vehicle}
                 />
                 <Button variant="ghost" size="icon" onClick={() => handleDeleteAssignment(assignment.uid)} disabled={deletingAssignmentUid === assignment.uid}>
