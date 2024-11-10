@@ -5,11 +5,7 @@
       "schedule": "0 0 * * *"
     },
     {
-      "path": "/api/sendTechnicalInspectionEmail",
-      "schedule": "0 0 * * *"
-    },
-    {
-      "path": "/api/sendInsurancePolicyEmail",
+      "path": "/api/sendReminderEmails",
       "schedule": "0 0 * * *"
     }
   ]
