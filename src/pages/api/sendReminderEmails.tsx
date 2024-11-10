@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const callReminderEndpoint = async (url: string) => {
   const response = await fetch(url, {
-    method: "GET",
+    method: "POST",
   });
 
   if (!response.ok) {
