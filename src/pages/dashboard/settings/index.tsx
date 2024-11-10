@@ -18,7 +18,7 @@ const SettingsPage = () => {
     setLoading(true);
     try {
       const response = await fetch("/api/updateStatus", {
-        method: "POST",
+        method: "GET",
       });
       if (response.ok) {
         toast({
