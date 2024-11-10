@@ -16,13 +16,13 @@ import NoData from "@/components/no-data";
 function DriverTable() {
   const { authUser } = useAuth();
   const { data, isLoading } = useGetDrivers({ managerUid: authUser!.uid });
-  const { mutate: deleteDriver, isPending } = useDeleteDriver({ managerUid: authUser!.uid });
+  const { mutate: deleteDriver, isPending } = useDeleteDriver({ userUid: authUser!.uid });
 
   const handleDeleteDriver = (driverUid: string) => {
     deleteDriver(driverUid, {
       onSuccess: () => {
         toast({
-          description: "Driver deleted successfully",
+          description: "Driver deleted successfully!",
         });
       },
     });
