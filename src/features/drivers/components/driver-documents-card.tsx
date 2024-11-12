@@ -1,7 +1,7 @@
 import React from "react";
 import { Driver } from "@/features/drivers/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import DocumentsUploader from "../../documents/components/documents-uploader";
+import DocumentsUploader from "@/features/documents/components/documents-uploader";
 import DocumentList from "@/features/documents/components/document-list";
 import queryClient from "@/lib/queryClient";
 

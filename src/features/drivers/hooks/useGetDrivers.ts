@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/../firebase";
-import { Driver } from "../types";
+import { Driver } from "@/features/drivers/types";
 
 type GetDriversOptions = {
   managerUid: string;

@@ -1,9 +1,8 @@
 import * as React from "react";
-import { FileX2, TrendingUp } from "lucide-react";
 import { LabelList, Pie, PieChart } from "recharts";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Vehicle } from "../types";
+import { Vehicle } from "@/features/vehicles/types";
 import NoData from "@/components/no-data";
 import { Skeleton } from "@/components/ui/skeleton";
 

@@ -13,7 +13,6 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@/providers/user-provider";
 import { useAuth } from "@/providers/auth-provider";
-import { useRouter } from "next/router";
 import { Role } from "@/features/auth/types";
 
 function UserInfo() {

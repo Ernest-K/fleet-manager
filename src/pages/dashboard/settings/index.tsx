@@ -5,9 +5,8 @@ import { toast } from "@/components/ui/use-toast";
 import EditCredentialCard from "@/features/auth/components/edit-credential-card";
 import { Role } from "@/features/auth/types";
 import { DashboardLayout } from "@/layouts/dashboard-layout";
-import { useAuth } from "@/providers/auth-provider";
 import { useUser } from "@/providers/user-provider";
-import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 
 const SettingsPage = () => {
   const [loading, setLoading] = useState(false);

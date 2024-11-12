@@ -1,10 +1,8 @@
 import * as React from "react";
-import { FileX2, TrendingUp } from "lucide-react";
-import { Label, LabelList, Pie, PieChart } from "recharts";
-
+import { LabelList, Pie, PieChart } from "recharts";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Driver } from "../types";
+import { Driver } from "@/features/drivers/types";
 import NoData from "@/components/no-data";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -61,7 +59,13 @@ export default function DriverStatusChart({ drivers }: DriverStatusChartProps) {
             <PieChart>
               <ChartTooltip content={<ChartTooltipContent nameKey="count" hideLabel />} />
               <Pie data={chartData} dataKey="count" nameKey="status">
-                <LabelList dataKey="status" className="fill-background" stroke="none" fontSize={12} formatter={(value: string) => `${value}: ${chartData.find((item) => item.status === value)?.count}`} />
+                <LabelList
+                  dataKey="status"
+                  className="fill-background"
+                  stroke="none"
+                  fontSize={12}
+                  formatter={(value: string) => `${value}: ${chartData.find((item) => item.status === value)?.count}`}
+                />
               </Pie>
             </PieChart>
           </ChartContainer>

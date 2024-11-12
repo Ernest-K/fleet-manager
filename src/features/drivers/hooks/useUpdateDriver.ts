@@ -11,7 +11,8 @@ type UpdateDriverOptions = {
 
 export function useUpdateDriver() {
   return useMutation({
-    mutationFn: ({ driverUid, driverData }: UpdateDriverOptions) => updateDocument<Driver>({ collectionName: CollectionNames.Users, docUid: driverUid, data: driverData }),
+    mutationFn: ({ driverUid, driverData }: UpdateDriverOptions) =>
+      updateDocument<Driver>({ collectionName: CollectionNames.Users, docUid: driverUid, data: driverData }),
     onSuccess: (_, { driverUid }) => {
       queryClient.invalidateQueries({ queryKey: ["driver", driverUid] });
     },

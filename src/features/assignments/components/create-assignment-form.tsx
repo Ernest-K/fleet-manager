@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetDrivers } from "@/features/drivers/hooks/useGetDrivers";
 import { useGetVehicles } from "@/features/vehicles/hooks/useGetVehicles";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { CalendarIcon, MoveUp } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import LoadingButton from "@/components/loading-button";

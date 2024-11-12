@@ -1,6 +1,6 @@
 import Menu from "@/components/menu";
 import ProtectedRoute from "@/components/protected-route";
-import { LayoutDashboard, Car, UsersRound, UserRoundPen, TextSearch, Wrench, BadgeAlert, Settings, House } from "lucide-react";
+import { Settings, House } from "lucide-react";
 import { ReactNode } from "react";
 import { Navbar } from "@/components/navbar";
 import { ThemeToggle } from "@/components/theme-toggle";

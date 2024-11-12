@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import VehicleCard from "@/features/vehicles/components/vehicle-card";
-import { Issue } from "../types";
-import IssueCard from "./issue-card";
+import { Issue } from "@/features/issues/types";
+import IssueCard from "@/features/issues/components/issue-card";
 
 type IssueSheetProps = {
   trigger: ReactNode;

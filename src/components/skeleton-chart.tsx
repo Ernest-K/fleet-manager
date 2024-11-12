@@ -1,5 +1,4 @@
 import React from "react";
-import { Loader2 } from "lucide-react";
 
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";

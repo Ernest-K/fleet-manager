@@ -1,12 +1,10 @@
 import { DashboardLayout } from "@/layouts/dashboard-layout";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
-import BackButton from "@/components/back-button";
 import { useGetDriver } from "@/features/drivers/hooks/useGetDriver";
 import ProfilePhotoUploader from "@/components/profile-photo-uploader";
 import EditDriverForm from "@/features/drivers/components/edit-driver-form";
 import DashboardContentHeader from "@/components/dashboard-content-header";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 const DriverEditPage = () => {

@@ -8,7 +8,7 @@ import { registerFormSchema } from "@/features/auth/types";
 import useRegister from "@/features/auth/hooks/useRegister";
 import { useToast } from "@/components/ui/use-toast";
 import LoadingButton from "@/components/loading-button";
-import useLogin from "../hooks/useLogin";
+import useLogin from "@/features/auth/hooks/useLogin";
 import { useRouter } from "next/router";
 import { Icons } from "@/components/ui/icons";
 

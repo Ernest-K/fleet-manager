@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import React from "react";
-import EditEmailForm from "./edit-email-form";
-import EditPasswordForm from "./edit-password-form";
+import EditEmailForm from "@/features/auth/components/edit-email-form";
+import EditPasswordForm from "@/features/auth/components/edit-password-form";
 
 function EditCredentialCard() {
   return (

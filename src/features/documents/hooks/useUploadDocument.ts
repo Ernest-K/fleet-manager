@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { db, storage } from "@/../../firebase";
+import { db, storage } from "@/../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { CollectionNames } from "@/types";
 
 type UploadDocumentOptions = {
   entityUid: string;
@@ -40,7 +41,7 @@ export const useUploadDocument = ({ entityType }: useUploadDocumentOptions) => {
       async () => {
         try {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          await addDoc(collection(db, "documents"), {
+          await addDoc(collection(db, CollectionNames.Documents), {
             entityUid,
             label,
             fileName: file.name,

@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import LoginForm from "@/features/auth/components/login-form";
 import { UserRound } from "lucide-react";
 import { Icons } from "@/components/ui/icons";
-import useLogin from "../hooks/useLogin";
+import useLogin from "@/features/auth/hooks/useLogin";
 import { useRouter } from "next/router";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, db } from "../../../../firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { CollectionNames } from "@/types";
-import { Role, User } from "../types";
-import { useUser } from "@/providers/user-provider";
-import { useGoogleLogin } from "../hooks/useGoogleLogin";
+import { useGoogleLogin } from "@/features/auth/hooks/useGoogleLogin";
 
 function LoginCard() {
   // TODO

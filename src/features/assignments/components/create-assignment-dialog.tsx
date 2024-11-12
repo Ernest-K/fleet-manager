@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-
-import CreateAssignmentForm from "./create-assignment-form";
+import CreateAssignmentForm from "@/features/assignments/components/create-assignment-form";
 
 type CreateAssignmentDialogProps = {
   trigger: ReactNode;

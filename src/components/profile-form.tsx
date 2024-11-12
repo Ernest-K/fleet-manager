@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useUser } from "@/providers/user-provider";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "@/../firebase";
 import LoadingButton from "@/components/loading-button";
 import { toast } from "@/components/ui/use-toast";
+import { CollectionNames } from "@/types";
 
 const updateProfileSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -30,7 +31,7 @@ function ProfileForm() {
 
   const updateProfileHandler = async (values: z.infer<typeof updateProfileSchema>) => {
     try {
-      await updateDoc(doc(db, "users", user!.uid), {
+      await updateDoc(doc(db, CollectionNames.Users, user!.uid), {
         firstName: values.firstName,
         lastName: values.lastName,
       });

@@ -1,6 +1,6 @@
 import { Body, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 import * as React from "react";
-import { Vehicle } from "../types";
+import { Vehicle } from "@/features/vehicles/types";
 import { format } from "date-fns";
 
 interface InsurancePolicyEmailTemplateProps {

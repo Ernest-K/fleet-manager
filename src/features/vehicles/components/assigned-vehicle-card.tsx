@@ -6,7 +6,7 @@ import IssueDialog from "@/features/issues/components/issue-dialog";
 import { Vehicle } from "@/features/vehicles/types";
 import { format } from "date-fns";
 import { Timestamp } from "firebase/firestore";
-import { Barcode, CalendarIcon, Car, ChevronsLeftRightEllipsis, CircleDot, FileDigit, SquareArrowOutUpRight, TriangleAlert } from "lucide-react";
+import { Barcode, CalendarIcon, Car, ChevronsLeftRightEllipsis, CircleDot, FileDigit, TriangleAlert } from "lucide-react";
 import Image from "next/image";
 
 type AssignedVehicleCardProps = {

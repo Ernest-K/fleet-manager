@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FileText, X } from "lucide-react";
-import { Button } from "../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useGetDocuments } from "@/features/documents/hooks/useGetDocuments";
 import { useDeleteDocument } from "@/features/documents/hooks/useDeleteDocument";
 import Link from "next/link";
 import { EntityDocument } from "@/features/documents/types";
-import { Icons } from "../../../components/ui/icons";
-import { toast } from "../../../components/ui/use-toast";
+import { Icons } from "@/components/ui/icons";
+import { toast } from "@/components/ui/use-toast";
 
 type DocumentListProps = {
   entityUid: string;
@@ -48,7 +48,13 @@ function DocumentList({ entityUid }: DocumentListProps) {
               <p className="hidden sm:block text-sm text-muted-foreground text-right">{new Date(document.createdAt.seconds * 1000).toUTCString()}</p>
               <p className="text-xs text-muted-foreground text-right">{(document.fileSize / 1024).toFixed(2)} KB</p>
             </div>
-            <Button size="icon" variant="secondary" className="h-6 w-6" onClick={() => handleDeleteDocument(document)} disabled={deletingDocumentUid === document.uid}>
+            <Button
+              size="icon"
+              variant="secondary"
+              className="h-6 w-6"
+              onClick={() => handleDeleteDocument(document)}
+              disabled={deletingDocumentUid === document.uid}
+            >
               {deletingDocumentUid === document.uid ? <Icons.spinner className="h-5 w-5 animate-spin" /> : <X className="h-5 w-5" />}
             </Button>
           </div>

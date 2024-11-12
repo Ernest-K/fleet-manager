@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/navbar";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 
 type AuthLayoutProps = {

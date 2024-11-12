@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import { useEffect, ReactNode } from "react";
+import { useRouter } from "next/router";
 import { useAuth } from "@/providers/auth-provider";
 import { useUser } from "@/providers/user-provider";
 import { Icons } from "@/components/ui/icons";

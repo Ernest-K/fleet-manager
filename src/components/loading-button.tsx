@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, ComponentProps } from "react";
+import React, { ComponentProps } from "react";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 

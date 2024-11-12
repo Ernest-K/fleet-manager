@@ -23,8 +23,7 @@ import { useUser } from "@/providers/user-provider";
 
 import { Vehicle } from "@/features/vehicles/types";
 import { Role } from "@/features/auth/types";
-import { AuditFields, CollectionNames } from "@/types";
-import queryClient from "@/lib/queryClient";
+import { AuditFields } from "@/types";
 
 type IssueFormProps = {
   issue?: Issue;

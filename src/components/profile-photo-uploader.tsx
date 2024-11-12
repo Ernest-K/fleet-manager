@@ -3,7 +3,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateDoc, doc } from "firebase/firestore";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import LoadingButton from "./loading-button";
+import LoadingButton from "@/components/loading-button";
 import { db, storage } from "@/../firebase";
 
 type ProfilePhotoUploaderProps = {

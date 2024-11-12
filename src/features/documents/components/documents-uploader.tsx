@@ -1,9 +1,9 @@
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Upload } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { useState } from "react";
 import LoadingButton from "@/components/loading-button";
-import { useUploadDocument } from "../hooks/useUploadDocument";
+import { useUploadDocument } from "@/features/documents/hooks/useUploadDocument";
 import { toast } from "@/components/ui/use-toast";
 
 type DocumentsUploaderProps = {
@@ -25,14 +25,12 @@ const DocumentsUploader = ({ entityType, entityUid, maxSizeMB = 5, allowedTypes 
       const selectedFile = e.target.files[0];
       setFileError(null);
 
-      // Check file type
       const fileType = `.${selectedFile.name.split(".").pop()}`;
       if (!allowedTypes.includes(fileType.toLowerCase())) {
         setFileError(`Invalid file type. Allowed types: ${allowedTypes.join(", ")}`);
         return;
       }
 
-      // Check file size
       if (selectedFile.size > maxSizeMB * 1024 * 1024) {
         setFileError(`File size exceeds ${maxSizeMB}MB limit`);
         return;
@@ -73,7 +71,14 @@ const DocumentsUploader = ({ entityType, entityUid, maxSizeMB = 5, allowedTypes 
       <div className="flex flex-row gap-3 flex-wrap">
         <Input id="document-upload" type="file" accept={allowedTypes.join(", ")} onChange={handleFileChange} className="basis-80 grow" />
         <Input value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Document label" className="basis-80 grow" />
-        <LoadingButton label="Upload" loadingLabel="Uploading" isLoading={uploading} onClick={handleUpload} disabled={uploading || !file || !label} className="grow sm:grow-0" />
+        <LoadingButton
+          label="Upload"
+          loadingLabel="Uploading"
+          isLoading={uploading}
+          onClick={handleUpload}
+          disabled={uploading || !file || !label}
+          className="grow sm:grow-0"
+        />
       </div>
       {fileError && (
         <Alert variant="destructive">

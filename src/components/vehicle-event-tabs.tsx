@@ -11,7 +11,7 @@ import { Issue } from "@/features/issues/types";
 import { Service } from "@/features/services/types";
 import { CollectionNames } from "@/types";
 import InspectionDialog from "@/features/inspections/components/inspection-dialog";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Plus, TriangleAlert } from "lucide-react";
 import ServiceDialog from "@/features/services/components/service-dialog";
 import IssueDialog from "@/features/issues/components/issue-dialog";
