@@ -22,9 +22,7 @@ export const sendInspectionReminder = async (vehicle: Vehicle, daysUntil: number
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     for (const { days, range } of REMINDER_INTERVALS) {
-      // Fetch and send reminders for technical inspections
       const vehiclesForInspection = await fetchUpcomingVehicles("technicalInspectionDate", days, range);
-      console.log(vehiclesForInspection);
       await Promise.all(vehiclesForInspection.map((vehicle) => sendInspectionReminder(vehicle, days)));
     }
 

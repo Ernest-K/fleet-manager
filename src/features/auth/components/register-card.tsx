@@ -3,8 +3,21 @@ import RegisterForm from "@/features/auth/components/register-form";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
+import { useGoogleLogin } from "@/features/auth/hooks/useGoogleLogin";
+import { useRouter } from "next/router";
 
 function RegisterCard() {
+  const router = useRouter();
+  const { mutate: googleLogin, isPending } = useGoogleLogin();
+
+  const handleGoogleLogin = () => {
+    googleLogin(undefined, {
+      onSuccess: () => {
+        router.push("/dashboard");
+      },
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -24,8 +37,8 @@ function RegisterCard() {
       </CardContent>
 
       <CardFooter>
-        <Button variant="outline" className="w-full">
-          <Icons.google className="mr-2 h-4 w-4" />
+        <Button variant="outline" className="flex-1" onClick={handleGoogleLogin} disabled={isPending}>
+          {isPending ? <Icons.spinner className="mr-2 h-4 w-4 animate-spin" /> : <Icons.google className="mr-2 h-4 w-4" />}
           Google
         </Button>
       </CardFooter>
