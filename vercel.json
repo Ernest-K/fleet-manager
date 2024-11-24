@@ -1,8 +1,6 @@
 {
   "crons": [
-    {
-      "path": "/api/updateStatus",
-      "schedule": "0 0 * * *"
-    }
+    { "path": "/api/sendTechnicalInspectionEmail", "schedule": "0 0 * * *" },
+    { "path": "/api/sendInsurancePolicyEmail", "schedule": "0 0 * * *" }
   ]
 }
